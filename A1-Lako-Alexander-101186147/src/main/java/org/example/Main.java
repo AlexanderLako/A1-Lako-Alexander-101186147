@@ -37,11 +37,19 @@ public class Main {
         }
     }
 
+    class player{
+        ArrayList<adventureCard> playersHand = new ArrayList<adventureCard>();
+    }
+
     ArrayList<adventureCard> adventureDeck = new ArrayList<adventureCard>();
     ArrayList<eventCard> eventDeck = new ArrayList<eventCard>();
 
     ArrayList<adventureCard> adventureDiscardPile = new ArrayList<adventureCard>();
     ArrayList<eventCard> eventDiscardPile = new ArrayList<eventCard>();
+
+    ArrayList<player> players = new ArrayList<player>();
+
+    int numPlayers = 4;
 
     //Initializes an adventure card array with all foe and weapon cards. Shuffle Deck
     void initializeAdventureDeck(){
@@ -151,6 +159,9 @@ public class Main {
         eventDeck.add(q52);
 
         Collections.shuffle(eventDeck);
+    }
+
+    void initializePlayers(){
 
     }
 
@@ -168,6 +179,10 @@ public class Main {
 
     int getEventDiscardSize(){
         return eventDiscardPile.size();
+    }
+
+    int getPlayerHandSize(player p){
+        return 0;
     }
 
 

@@ -48,5 +48,38 @@ class MainTest {
         assertEquals(0, eventDiscardSize);
     }
 
+    @Test
+    @DisplayName("RESP 2.1: Test to check that each player has 12 cards")
+    void RESP_2_test_1(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+
+        //Initialize players and give them cards
+        game.initializePlayers();
+
+        int correctHands = 0;
+
+        // Check that each player has 12 cards
+        for(int i = 0; i < game.numPlayers; i++){
+            if(game.getPlayerHandSize(game.players.get(i)) == 12) {correctHands++;}
+        }
+
+        assertEquals(game.numPlayers, correctHands);
+    }
+
+    @Test
+    @DisplayName("RESP 2.2: Test to check that the adventure deck was updated")
+    void RESP_2_test_2(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+
+        //Initialize players and give them cards
+        game.initializePlayers();
+
+        int adventureDeckSize = game.getAdventureDeckSize();
+
+        assertEquals(100 - (game.numPlayers * 12), adventureDeckSize);
+    }
+
 
 }
