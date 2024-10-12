@@ -38,7 +38,14 @@ public class Main {
     }
 
     class player{
+        String name;
         ArrayList<adventureCard> playersHand = new ArrayList<adventureCard>();
+        int numShields;
+
+        public player(String n){
+            this.name = n;
+            numShields = 0;
+        }
     }
 
     ArrayList<adventureCard> adventureDeck = new ArrayList<adventureCard>();
@@ -50,6 +57,7 @@ public class Main {
     ArrayList<player> players = new ArrayList<player>();
 
     int numPlayers = 4;
+    int handSize = 12;
 
     //Initializes an adventure card array with all foe and weapon cards. Shuffle Deck
     void initializeAdventureDeck(){
@@ -163,6 +171,19 @@ public class Main {
 
     void initializePlayers(){
 
+        for(int i = 0; i < numPlayers; i++){
+            player p = new player("P" + Integer.toString(i+1));
+            players.add(p);
+
+            while (getPlayerHandSize(p) < handSize) {
+                addCard(p);
+            }
+        }
+    }
+    
+    void addCard(player p){
+        adventureCard card = adventureDeck.removeLast();
+        p.playersHand.add(card);
     }
 
     int getAdventureDeckSize(){
@@ -182,7 +203,7 @@ public class Main {
     }
 
     int getPlayerHandSize(player p){
-        return 0;
+        return p.playersHand.size();
     }
 
 
