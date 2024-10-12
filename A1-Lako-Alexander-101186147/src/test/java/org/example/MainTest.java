@@ -81,5 +81,65 @@ class MainTest {
         assertEquals(100 - (game.numPlayers * 12), adventureDeckSize);
     }
 
+    @Test
+    @DisplayName("RESP 3.1: Test to check if a player has 7 shields")
+    void RESP_3_test_1(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
 
+        //Rig the game to set player1 with 7 shields
+        Main.player testPlayer = game.players.get(0);
+        testPlayer.numShields = 7;
+
+        int playerShields = game.getPlayerNumShields(testPlayer);
+
+        assertEquals(7, playerShields);
+    }
+
+    @Test
+    @DisplayName("RESP 3.2: Test to check if one or more players have 7 shields and won the game")
+    void RESP_3_test_2(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        //Rig the game to set players with 7 shields
+        Main.player testPlayer1 = game.players.get(1);
+        Main.player testPlayer2 = game.players.get(2);
+        testPlayer1.numShields = 7;
+        testPlayer2.numShields = 7;
+
+        boolean winner = game.checkWinner();
+
+        assertEquals(true, winner);
+    }
+
+    @Test
+    @DisplayName("RESP 3.3: Test to check that if a player has 7 OR MORE shields and wins the game")
+    void RESP_3_test_3(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        //Rig the game to set player1 with 8 shields
+        Main.player testPlayer = game.players.get(0);
+        testPlayer.numShields = 8;
+
+        boolean winner = game.checkWinner();
+
+        assertEquals(true, winner);
+    }
+
+    @Test
+    @DisplayName("RESP 3.4: Test to check that if no player has 7 or more shields, there is no winner")
+    void RESP_3_test_4(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        boolean winner = game.checkWinner();
+
+        assertEquals(false, winner);
+    }
 }

@@ -186,6 +186,10 @@ public class Main {
         p.playersHand.add(card);
     }
 
+    boolean checkWinner(){
+        return false;
+    }
+
     int getAdventureDeckSize(){
         return adventureDeck.size();
     }
@@ -204,6 +208,10 @@ public class Main {
 
     int getPlayerHandSize(player p){
         return p.playersHand.size();
+    }
+
+    int getPlayerNumShields(player p){
+        return 0;
     }
 
 
