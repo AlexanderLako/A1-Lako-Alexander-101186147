@@ -187,6 +187,11 @@ public class Main {
     }
 
     boolean checkWinner(){
+        for(int i = 0; i < numPlayers; i++){
+            if(getPlayerNumShields(players.get(i)) >= 7){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -211,7 +216,7 @@ public class Main {
     }
 
     int getPlayerNumShields(player p){
-        return 0;
+        return p.numShields;
     }
 
 
