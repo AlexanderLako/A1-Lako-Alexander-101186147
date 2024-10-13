@@ -60,6 +60,7 @@ public class Main {
 
     int numPlayers = 4;
     int handSize = 12;
+    boolean terminate = false;
 
     //Initializes an adventure card array with all foe and weapon cards. Shuffle Deck
     void initializeAdventureDeck(){
@@ -198,7 +199,14 @@ public class Main {
     }
 
     void displayWinners(PrintWriter output){
-        
+        String winnerNames = "";
+        for(int i = 0; i < numPlayers; i++){
+            if(getPlayerNumShields(players.get(i)) >= 7){
+                winnerNames += players.get(i).name + " ";
+            }
+        }
+        output.println("Winner(s)!: " + winnerNames); output.flush();
+        terminate = true;
     }
 
     int getAdventureDeckSize(){
