@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -193,6 +195,10 @@ public class Main {
             }
         }
         return false;
+    }
+
+    void displayWinners(PrintWriter output){
+        
     }
 
     int getAdventureDeckSize(){

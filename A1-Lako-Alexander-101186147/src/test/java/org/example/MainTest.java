@@ -3,6 +3,9 @@ package org.example;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
@@ -142,4 +145,39 @@ class MainTest {
 
         assertEquals(false, winner);
     }
+
+    @Test
+    @DisplayName("RESP 4.1: Test to check that if a player has won, their name is displayed")
+    void RESP_4_test_1(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player testPlayer = game.players.get(0);
+        testPlayer.numShields = 7;
+
+        StringWriter output = new StringWriter();
+        game.displayWinners(new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Winner(s)!: P1 "));
+    }
+
+    @Test
+    @DisplayName("RESP 4.2: Test to check that if multiple players have won, all their names are displayed")
+    void RESP_4_test_2(){
+        Main game = new Main();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player testPlayer1 = game.players.get(1);
+        Main.player testPlayer2 = game.players.get(2);
+        testPlayer1.numShields = 7;
+        testPlayer2.numShields = 7;
+
+        StringWriter output = new StringWriter();
+        game.displayWinners(new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Winner(s)!: P2 P3 "));
+    }
+
 }
