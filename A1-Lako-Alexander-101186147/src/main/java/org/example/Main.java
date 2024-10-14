@@ -212,11 +212,16 @@ public class Main {
     }
 
     void drawEventCard(){
-
+        currentEvent = eventDeck.removeFirst();
     }
 
     void displayEventCard(eventCard eCard, PrintWriter output){
-
+        if(eCard.stages == -1){
+            output.println("Current Event Card: " + eCard.type); output.flush();
+        }
+        else{
+            output.println("Current Event Card: " + eCard.type + eCard.stages); output.flush();
+        }
     }
 
     int getAdventureDeckSize(){
@@ -244,7 +249,15 @@ public class Main {
     }
 
     void setEventCard(String t, int s, int position){
+        int index = -1;
 
+        for(int i = 0; i < getEventDeckSize(); i++){
+            if(eventDeck.get(i).type.equals(t) && eventDeck.get(i).stages == s){
+                index = i;
+                break;
+            }
+        }
+        Collections.swap(eventDeck, position, index);
     }
 
 
