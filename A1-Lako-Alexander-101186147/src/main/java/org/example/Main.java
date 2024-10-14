@@ -58,6 +58,8 @@ public class Main {
 
     ArrayList<player> players = new ArrayList<player>();
 
+    eventCard currentEvent = new eventCard("");
+
     int numPlayers = 4;
     int handSize = 12;
     boolean terminate = false;
@@ -209,6 +211,14 @@ public class Main {
         terminate = true;
     }
 
+    void drawEventCard(){
+
+    }
+
+    void displayEventCard(eventCard eCard, PrintWriter output){
+
+    }
+
     int getAdventureDeckSize(){
         return adventureDeck.size();
     }
@@ -231,6 +241,10 @@ public class Main {
 
     int getPlayerNumShields(player p){
         return p.numShields;
+    }
+
+    void setEventCard(String t, int s, int position){
+
     }
 
 

@@ -180,4 +180,43 @@ class MainTest {
         assertTrue(output.toString().contains("Winner(s)!: P2 P3 "));
     }
 
+    @Test
+    @DisplayName("RESP 5.1: Test to check that when an event card is drawn, the event deck is updated correctly")
+    void RESP_5_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.drawEventCard();
+
+        int currEventDeckSize = game.getEventDeckSize();
+        assertEquals(16, currEventDeckSize);
+    }
+
+    @Test
+    @DisplayName("RESP 5.2: Test to check that event card is displayed")
+    void RESP_5_test_2(){
+        Main game = new Main();
+        game.initializeEventDeck();
+
+        //Set the first card in the deck to be Q4
+        game.setEventCard("Q", 4, 0);
+        game.drawEventCard();
+
+        StringWriter output = new StringWriter();
+        game.displayEventCard(game.currentEvent, new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Current Event Card: Q4"));
+    }
+
+    @Test
+    @DisplayName("RESP 5.3: Test to check that when an event card is drawn, the current event card in play is correct")
+    void RESP_5_test_3(){
+        Main game = new Main();
+        game.initializeEventDeck();
+
+        Main.eventCard eCard = game.eventDeck.get(0);
+        game.drawEventCard();
+
+        assertEquals(eCard, game.currentEvent);
+    }
+
 }
