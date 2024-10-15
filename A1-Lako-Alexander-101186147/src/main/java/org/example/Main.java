@@ -362,6 +362,10 @@ public class Main {
         }
     }
 
+    void startQuest(Scanner input, PrintWriter output){
+
+    }
+
     void displayAdventureHand(player p, PrintWriter output){
         output.print(p.name + " Hand:");
         for(int i = 0; i < getPlayerHandSize(p); i++){

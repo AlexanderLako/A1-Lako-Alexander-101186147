@@ -517,6 +517,25 @@ class MainTest {
     }
 
     @Test
+    @DisplayName("RESP 13.1: Test to check that the game has drawn a Q card and asks the user if they would like to sponsor the quest")
+    void RESP_13_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.setEventCard("Q", 4, 0);
+        game.drawEventCard();
+
+        String input = "yes";
+        StringWriter output = new StringWriter();
+
+        game.startQuest(new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Would you like to sponsor the current quest?"));
+    }
+
+    @Test
     @DisplayName("A-TEST JP-Scenario")
     void A_TEST_JP_SCENARIO(){
         Main game = new Main();
