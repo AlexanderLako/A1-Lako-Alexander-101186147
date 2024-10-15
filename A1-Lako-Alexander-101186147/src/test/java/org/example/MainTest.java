@@ -256,4 +256,22 @@ class MainTest {
 
         assertEquals(0, game.getPlayerNumShields(currPlayer));
     }
+
+    @Test
+    @DisplayName("RESP 7.1: Test to check that when queens favour is played, that it adds two cards to the users hand")
+    void RESP_7_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setEventCard("Queens favor", -1, 0);
+        game.drawEventCard();
+
+        game.playEvent();
+
+        assertEquals(14, game.getPlayerHandSize(currPlayer));
+    }
 }
