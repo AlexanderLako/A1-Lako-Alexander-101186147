@@ -249,7 +249,20 @@ public class Main {
     }
 
     void trimHand(player p, Scanner input, PrintWriter output){
+        output.println("Enter the number of the card you would to delete: ");
+        String inputStr = input.nextLine();
 
+        int inputNum = -1;
+        try {
+            inputNum = Integer.parseInt(inputStr);
+            //output.println("input is valid"); output.flush();
+        } catch(NumberFormatException e){
+            output.println("invalid input"); output.flush();
+        }
+
+        if(inputNum > getPlayerHandSize(p)){
+            output.println("invalid input"); output.flush();
+        }
     }
 
     int getAdventureDeckSize(){
