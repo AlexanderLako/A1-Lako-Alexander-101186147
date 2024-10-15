@@ -476,10 +476,11 @@ class MainTest {
         game.setAdventureCard(currPlayer,"W", "E", 30, 12);
         game.setAdventureCard(currPlayer,"W", "E", 30, 13);
 
-        String input = "10";
+        String input1 = "4";
         StringWriter output = new StringWriter();
-        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
-        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        game.trimHand(currPlayer, new Scanner(input1), new PrintWriter(output));
+        String input2 = "10";
+        game.trimHand(currPlayer, new Scanner(input2), new PrintWriter(output));
         assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WB15 (11):WE30 (12):WE30"));
     }
 
