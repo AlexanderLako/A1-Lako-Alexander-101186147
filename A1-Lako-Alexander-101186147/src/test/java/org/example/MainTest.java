@@ -420,4 +420,69 @@ class MainTest {
         assertEquals(1, game.getAdventureDiscardSize());
     }
 
+    @Test
+    @DisplayName("RESP 11.1: Test to make hand is displayed correctly after deleting one card")
+    void RESP_11_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setAdventureCard(currPlayer,"F", "", 5, 0);
+        game.setAdventureCard(currPlayer,"F", "", 5, 1);
+        game.setAdventureCard(currPlayer,"F", "", 5, 2);
+        game.setAdventureCard(currPlayer,"F", "", 5, 3);
+        game.setAdventureCard(currPlayer,"F", "", 5, 4);
+        game.setAdventureCard(currPlayer,"F", "", 5, 5);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 6);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 7);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 8);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 9);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 10);
+        game.setAdventureCard(currPlayer,"W", "B", 15, 11);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 12);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 13);
+
+        String input = "4";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WS10 (11):WB15 (12):WE30 (13):WE30"));
+    }
+
+    @Test
+    @DisplayName("RESP 11.2: Test to make hand is displayed correctly after deleting two cards")
+    void RESP_11_test_2() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setAdventureCard(currPlayer,"F", "", 5, 0);
+        game.setAdventureCard(currPlayer,"F", "", 5, 1);
+        game.setAdventureCard(currPlayer,"F", "", 5, 2);
+        game.setAdventureCard(currPlayer,"F", "", 5, 3);
+        game.setAdventureCard(currPlayer,"F", "", 5, 4);
+        game.setAdventureCard(currPlayer,"F", "", 5, 5);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 6);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 7);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 8);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 9);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 10);
+        game.setAdventureCard(currPlayer,"W", "B", 15, 11);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 12);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 13);
+
+        String input = "10";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WB15 (11):WE30 (12):WE30"));
+    }
+
+
+
 }
