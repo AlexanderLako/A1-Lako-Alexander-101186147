@@ -240,7 +240,11 @@ public class Main {
     }
 
     void displayAdventureHand(player p, PrintWriter output){
-
+        output.print(p.name + " Hand:");
+        for(int i = 0; i < getPlayerHandSize(p); i++){
+            output.print(" ("+(i+1)+"):" + p.playersHand.get(i).type + p.playersHand.get(i).category + p.playersHand.get(i).value);
+        }
+        output.flush();
     }
 
     int getAdventureDeckSize(){
@@ -272,7 +276,12 @@ public class Main {
     }
 
     int getTrimAmount(player p){
-        return 0;
+        if(getPlayerHandSize(p) - 12 <= 0){
+            return 0;
+        }
+        else{
+            return getPlayerHandSize(p) - 12;
+        }
     }
 
     void setEventCard(String t, int s, int position){
@@ -288,7 +297,14 @@ public class Main {
     }
 
     void setAdventureCard(player p, String t, String c, int v, int position){
-
+        adventureCard aCard = new adventureCard(t, c, v);
+        if(position > getPlayerHandSize(p)-1){
+            p.playersHand.add(aCard);
+        }
+        else{
+            p.playersHand.remove(position);
+            p.playersHand.add(position, aCard);
+        }
     }
 
 
