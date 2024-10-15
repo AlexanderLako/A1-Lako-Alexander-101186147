@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
 
 
 public class Main {
@@ -245,6 +246,10 @@ public class Main {
             output.print(" ("+(i+1)+"):" + p.playersHand.get(i).type + p.playersHand.get(i).category + p.playersHand.get(i).value);
         }
         output.flush();
+    }
+
+    void trimHand(player p, Scanner input, PrintWriter output){
+
     }
 
     int getAdventureDeckSize(){

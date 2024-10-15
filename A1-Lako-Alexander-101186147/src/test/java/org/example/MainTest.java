@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -322,6 +323,38 @@ class MainTest {
         game.displayAdventureHand(currPlayer, new PrintWriter(output));
 
         assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):F5 (7):WS10 (8):WS10 (9):WS10 (10):WS10 (11):WS10 (12):WB15 (13):WE30 (14):WE30"));
+    }
+
+    @Test
+    @DisplayName("RESP 9.1: Test to make sure that the player enters a valid position")
+    void RESP_9_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        String input = "1000";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        assertTrue(output.toString().contains("invalid input"));
+    }
+
+    @Test
+    @DisplayName("RESP 9.2: Test to make sure player is asked what card they want to delete")
+    void RESP_9_test_2() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        String input = "4";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        assertTrue(output.toString().contains("Enter the number of the card you would to delete: "));
     }
 
 }
