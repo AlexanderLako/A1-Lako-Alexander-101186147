@@ -484,6 +484,36 @@ class MainTest {
         assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WB15 (11):WE30 (12):WE30"));
     }
 
+    @Test
+    @DisplayName("RESP 12.1: Test to check that when prosperity is played, that it adds two cards to all users")
+    void RESP_12_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
 
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        //Remove 4 cards from each player leaving them with 8
+        for(int i = 0; i < 4; i++){
+            game.players.get(0).playersHand.remove(0);
+            game.players.get(1).playersHand.remove(0);
+            game.players.get(2).playersHand.remove(0);
+            game.players.get(3).playersHand.remove(0);
+        }
+
+        game.setEventCard("Prosperity", -1, 0);
+        game.drawEventCard();
+
+        game.playEvent();
+
+        boolean p110 = game.getPlayerHandSize(game.players.get(0)) == 10;
+        boolean p210 = game.getPlayerHandSize(game.players.get(1)) == 10;
+        boolean p310 = game.getPlayerHandSize(game.players.get(2)) == 10;
+        boolean p410 = game.getPlayerHandSize(game.players.get(3)) == 10;
+        boolean eachPlayer10 = p110 && p210 && p310 && p410;
+
+        assertEquals(true, eachPlayer10);
+    }
 
 }
