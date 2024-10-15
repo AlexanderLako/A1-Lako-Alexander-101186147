@@ -274,4 +274,54 @@ class MainTest {
 
         assertEquals(14, game.getPlayerHandSize(currPlayer));
     }
+
+    @Test
+    @DisplayName("RESP 8.1: Test to check that game correctly identifies how many cards the current player needs to discard")
+    void RESP_8_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setEventCard("Queens favor", -1, 0);
+        game.drawEventCard();
+
+        game.playEvent();
+
+        assertEquals(2, game.getTrimAmount(currPlayer));
+    }
+
+    @Test
+    @DisplayName("RESP 8.2: Test to check that players hand is correctly displayed")
+    void RESP_8_test_2() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setAdventureCard(currPlayer,"F", "", 5, 0);
+        game.setAdventureCard(currPlayer,"F", "", 5, 1);
+        game.setAdventureCard(currPlayer,"F", "", 5, 2);
+        game.setAdventureCard(currPlayer,"F", "", 5, 3);
+        game.setAdventureCard(currPlayer,"F", "", 5, 4);
+        game.setAdventureCard(currPlayer,"F", "", 5, 5);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 6);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 7);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 8);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 9);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 10);
+        game.setAdventureCard(currPlayer,"W", "B", 15, 11);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 12);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 13);
+
+        StringWriter output = new StringWriter();
+        game.displayAdventureHand(currPlayer, new PrintWriter(output));
+
+        assertTrue(output.toString().contains("P1 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):F5 (7):WS10 (8):WS10 (9):WS10 (10):WS10 (11):WS10 (12):WB15 (13):WE30 (14):WE30"));
+    }
+
 }

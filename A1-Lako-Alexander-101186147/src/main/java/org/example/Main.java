@@ -239,6 +239,10 @@ public class Main {
         }
     }
 
+    void displayAdventureHand(player p, PrintWriter output){
+
+    }
+
     int getAdventureDeckSize(){
         return adventureDeck.size();
     }
@@ -267,6 +271,10 @@ public class Main {
         return currentPlayer;
     }
 
+    int getTrimAmount(player p){
+        return 0;
+    }
+
     void setEventCard(String t, int s, int position){
         int index = -1;
 
@@ -277,6 +285,10 @@ public class Main {
             }
         }
         Collections.swap(eventDeck, position, index);
+    }
+
+    void setAdventureCard(player p, String t, String c, int v, int position){
+
     }
 
 
