@@ -219,4 +219,41 @@ class MainTest {
         assertEquals(eCard, game.currentEvent);
     }
 
+    @Test
+    @DisplayName("RESP 6.1: Test to check if player loses 2 shields based on event card")
+    void RESP_6_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setEventCard("Plague", -1, 0);
+        currPlayer.numShields = 4;
+        game.drawEventCard();
+
+        game.playEvent();
+
+        assertEquals(2, game.getPlayerNumShields(currPlayer));
+    }
+
+    @Test
+    @DisplayName("RESP 6.2: Test to check if player loses 2 shields they cant drop below 0")
+    void RESP_6_test_2() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setEventCard("Plague", -1, 0);
+        currPlayer.numShields = 1;
+        game.drawEventCard();
+
+        game.playEvent();
+
+        assertEquals(0, game.getPlayerNumShields(currPlayer));
+    }
 }
