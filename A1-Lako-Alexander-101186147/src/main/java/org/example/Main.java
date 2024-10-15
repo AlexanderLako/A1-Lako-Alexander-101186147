@@ -57,7 +57,7 @@ public class Main {
     ArrayList<eventCard> eventDiscardPile = new ArrayList<eventCard>();
 
     ArrayList<player> players = new ArrayList<player>();
-    player currentPlayer;
+    player currentPlayer = new player("");
 
     eventCard currentEvent = new eventCard("");
 
@@ -185,6 +185,7 @@ public class Main {
                 addCard(p);
             }
         }
+        currentPlayer = players.getFirst();
     }
     
     void addCard(player p){
@@ -226,7 +227,12 @@ public class Main {
     }
 
     void playEvent(){
-
+        if(currentEvent.type.equals("Plague")){
+            currentPlayer.numShields -= 2;
+            if(getPlayerNumShields(currentPlayer) <= 0){
+                currentPlayer.numShields = 0;
+            }
+        }
     }
 
     int getAdventureDeckSize(){
@@ -254,7 +260,7 @@ public class Main {
     }
 
     player getCurrentPlayer(){
-        return null;
+        return currentPlayer;
     }
 
     void setEventCard(String t, int s, int position){
