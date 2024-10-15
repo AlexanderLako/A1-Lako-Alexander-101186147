@@ -360,10 +360,16 @@ public class Main {
             addCard(players.get(3));
             addCard(players.get(3));
         }
+        else if(currentEvent.type.equals("Q")){
+            String input = "";
+            StringWriter output = new StringWriter();
+            startQuest(new Scanner(input), new PrintWriter(output));
+        }
     }
 
     void startQuest(Scanner input, PrintWriter output){
-
+        output.println("Would you like to sponsor the current quest?"); output.flush();
+        String inputStr = input.nextLine();
     }
 
     void displayAdventureHand(player p, PrintWriter output){
@@ -381,7 +387,6 @@ public class Main {
         int inputNum = -1;
         try {
             inputNum = Integer.parseInt(inputStr);
-            //output.println("input is valid"); output.flush();
         } catch(NumberFormatException e){
             output.println("invalid input"); output.flush();
             return;
