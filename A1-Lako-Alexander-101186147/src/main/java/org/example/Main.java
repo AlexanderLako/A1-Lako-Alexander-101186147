@@ -233,6 +233,10 @@ public class Main {
                 currentPlayer.numShields = 0;
             }
         }
+        if(currentEvent.type.equals("Queens favor")){
+            addCard(currentPlayer);
+            addCard(currentPlayer);
+        }
     }
 
     int getAdventureDeckSize(){
