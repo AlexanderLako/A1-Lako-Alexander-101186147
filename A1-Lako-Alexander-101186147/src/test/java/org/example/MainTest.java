@@ -357,4 +357,67 @@ class MainTest {
         assertTrue(output.toString().contains("Enter the number of the card you would to delete: "));
     }
 
+    @Test
+    @DisplayName("RESP 10.1: Test to make sure the card is deleted")
+    void RESP_10_test_1() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setAdventureCard(currPlayer,"F", "", 5, 0);
+        game.setAdventureCard(currPlayer,"F", "", 5, 1);
+        game.setAdventureCard(currPlayer,"F", "", 5, 2);
+        game.setAdventureCard(currPlayer,"F", "", 5, 3);
+        game.setAdventureCard(currPlayer,"F", "", 5, 4);
+        game.setAdventureCard(currPlayer,"F", "", 5, 5);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 6);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 7);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 8);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 9);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 10);
+        game.setAdventureCard(currPlayer,"W", "B", 15, 11);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 12);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 13);
+
+        String input = "4";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        //assertTrue(output.toString().contains("Enter the number of the card you would to delete: "));
+        assertEquals(13, game.getPlayerHandSize(currPlayer));
+    }
+
+    @Test
+    @DisplayName("RESP 10.2: Test to make sure deleted card is added to the discard pile")
+    void RESP_10_test_2() {
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        Main.player currPlayer = game.getCurrentPlayer();
+
+        game.setAdventureCard(currPlayer,"F", "", 5, 0);
+        game.setAdventureCard(currPlayer,"F", "", 5, 1);
+        game.setAdventureCard(currPlayer,"F", "", 5, 2);
+        game.setAdventureCard(currPlayer,"F", "", 5, 3);
+        game.setAdventureCard(currPlayer,"F", "", 5, 4);
+        game.setAdventureCard(currPlayer,"F", "", 5, 5);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 6);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 7);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 8);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 9);
+        game.setAdventureCard(currPlayer,"W", "S", 10, 10);
+        game.setAdventureCard(currPlayer,"W", "B", 15, 11);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 12);
+        game.setAdventureCard(currPlayer,"W", "E", 30, 13);
+
+        String input = "4";
+        StringWriter output = new StringWriter();
+        game.trimHand(currPlayer, new Scanner(input), new PrintWriter(output));
+        assertEquals(1, game.getAdventureDiscardSize());
+    }
+
 }
