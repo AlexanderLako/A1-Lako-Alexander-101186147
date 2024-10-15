@@ -258,13 +258,16 @@ public class Main {
             //output.println("input is valid"); output.flush();
         } catch(NumberFormatException e){
             output.println("invalid input"); output.flush();
+            return;
         }
 
         if(inputNum > getPlayerHandSize(p)){
             output.println("invalid input"); output.flush();
+            return;
         }
 
         adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
+        displayAdventureHand(p, output);
     }
 
     int getAdventureDeckSize(){
