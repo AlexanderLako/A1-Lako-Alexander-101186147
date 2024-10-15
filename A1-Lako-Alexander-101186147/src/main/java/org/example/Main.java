@@ -234,9 +234,19 @@ public class Main {
                 currentPlayer.numShields = 0;
             }
         }
-        if(currentEvent.type.equals("Queens favor")){
+        else if(currentEvent.type.equals("Queens favor")){
             addCard(currentPlayer);
             addCard(currentPlayer);
+        }
+        else if(currentEvent.type.equals("Prosperity")){
+            addCard(players.get(0));
+            addCard(players.get(0));
+            addCard(players.get(1));
+            addCard(players.get(1));
+            addCard(players.get(2));
+            addCard(players.get(2));
+            addCard(players.get(3));
+            addCard(players.get(3));
         }
     }
 
