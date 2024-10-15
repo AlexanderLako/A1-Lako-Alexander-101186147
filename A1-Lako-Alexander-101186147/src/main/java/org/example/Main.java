@@ -263,6 +263,8 @@ public class Main {
         if(inputNum > getPlayerHandSize(p)){
             output.println("invalid input"); output.flush();
         }
+
+        adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
     }
 
     int getAdventureDeckSize(){
