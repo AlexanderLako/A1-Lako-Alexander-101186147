@@ -516,4 +516,82 @@ class MainTest {
         assertEquals(true, eachPlayer10);
     }
 
+    @Test
+    @DisplayName("A-TEST JP-Scenario")
+    void A_TEST_JP_SCENARIO(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.setAdventureCard(game.players.get(0),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(0),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(0),"F", "", 15, 2);
+        game.setAdventureCard(game.players.get(0),"F", "", 15, 3);
+        game.setAdventureCard(game.players.get(0),"W", "D", 5, 4);
+        game.setAdventureCard(game.players.get(0),"W", "S", 10, 5);
+        game.setAdventureCard(game.players.get(0),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(0),"W", "H", 10, 7);
+        game.setAdventureCard(game.players.get(0),"W", "H", 10, 8);
+        game.setAdventureCard(game.players.get(0),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(0),"W", "B", 15, 10);
+        game.setAdventureCard(game.players.get(0),"W", "L", 20, 11);
+
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(1),"F", "", 15, 2);
+        game.setAdventureCard(game.players.get(1),"F", "", 15, 3);
+        game.setAdventureCard(game.players.get(1),"F", "", 40, 4);
+        game.setAdventureCard(game.players.get(1),"W", "D", 5, 5);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(1),"W", "H", 10, 7);
+        game.setAdventureCard(game.players.get(1),"W", "H", 10, 8);
+        game.setAdventureCard(game.players.get(1),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(1),"W", "B", 15, 10);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 11);
+
+        game.setAdventureCard(game.players.get(2),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(2),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(2),"F", "", 5, 2);
+        game.setAdventureCard(game.players.get(2),"F", "", 15, 3);
+        game.setAdventureCard(game.players.get(2),"W", "D", 5, 4);
+        game.setAdventureCard(game.players.get(2),"W", "S", 10, 5);
+        game.setAdventureCard(game.players.get(2),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(2),"W", "S", 10, 7);
+        game.setAdventureCard(game.players.get(2),"W", "H", 10, 8);
+        game.setAdventureCard(game.players.get(2),"W", "H", 10, 9);
+        game.setAdventureCard(game.players.get(2),"W", "B", 15, 10);
+        game.setAdventureCard(game.players.get(2),"W", "L", 20, 11);
+
+        game.setAdventureCard(game.players.get(3),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(3),"F", "", 15, 1);
+        game.setAdventureCard(game.players.get(3),"F", "", 15, 2);
+        game.setAdventureCard(game.players.get(3),"F", "", 40, 3);
+        game.setAdventureCard(game.players.get(3),"W", "D", 5, 4);
+        game.setAdventureCard(game.players.get(3),"W", "D", 5, 5);
+        game.setAdventureCard(game.players.get(3),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(3),"W", "H", 10, 7);
+        game.setAdventureCard(game.players.get(3),"W", "H", 10, 8);
+        game.setAdventureCard(game.players.get(3),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(3),"W", "L", 20, 10);
+        game.setAdventureCard(game.players.get(3),"W", "E", 30, 11);
+
+        game.setEventCard("Q",4,0);
+        game.drawEventCard();
+        game.sponsorPlayerNum = 1; //P2
+
+        String input = "1";
+        StringWriter output = new StringWriter();
+
+        game.setAdventureCard(game.players.get(0),"F", "", 30, 12);
+        game.trimHand(game.players.get(0), new Scanner(input), new PrintWriter(output));
+
+        game.setAdventureCard(game.players.get(2),"W", "S", 5, 12);
+        game.trimHand(game.players.get(2), new Scanner(input), new PrintWriter(output));
+
+        game.setAdventureCard(game.players.get(3),"W", "B", 15, 12);
+        game.trimHand(game.players.get(3), new Scanner(input), new PrintWriter(output));
+
+    }
+
 }
