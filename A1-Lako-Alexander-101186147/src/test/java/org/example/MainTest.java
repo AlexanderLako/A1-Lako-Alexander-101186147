@@ -644,6 +644,62 @@ class MainTest {
     }
 
     @Test
+    @DisplayName("RESP 17.1: Test that game displays hand of player when building attack")
+    void RESP_17_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 2);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 3);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 4);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 5);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 7);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 8);
+        game.setAdventureCard(game.players.get(1),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 10);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 11);
+
+        String input = "12";
+        StringWriter output = new StringWriter();
+        game.buildAttack(game.players.get(1), new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("P2 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WB15 (11):WE30 (12):WE30"));
+    }
+
+    @Test
+    @DisplayName("RESP 17.2: Test that player is prompted to choose a card for attack or quit")
+    void RESP_17_test_2(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 2);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 3);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 4);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 5);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 7);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 8);
+        game.setAdventureCard(game.players.get(1),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 10);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 11);
+
+        String input = "12";
+        StringWriter output = new StringWriter();
+        game.buildAttack(game.players.get(1), new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Enter the card number you would like to use for your attack OR enter 'quit'"));
+    }
+
+    @Test
     @DisplayName("A-TEST JP-Scenario")
     void A_TEST_JP_SCENARIO(){
         Main game = new Main();
