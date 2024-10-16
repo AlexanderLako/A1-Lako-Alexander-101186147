@@ -601,6 +601,49 @@ class MainTest {
     }
 
     @Test
+    @DisplayName("RESP 16.1: Test that if no one has won, game indicates its the turn of the next player")
+    void RESP_16_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        String input = "<return>";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("It is now P2 turn"));
+    }
+
+    @Test
+    @DisplayName("RESP 16.2: Test that if no one has won, game displays the hand of the next player")
+    void RESP_16_test_2(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 0);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 1);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 2);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 3);
+        game.setAdventureCard(game.players.get(1),"F", "", 5, 4);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 5);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 6);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 7);
+        game.setAdventureCard(game.players.get(1),"W", "S", 10, 8);
+        game.setAdventureCard(game.players.get(1),"W", "B", 15, 9);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 10);
+        game.setAdventureCard(game.players.get(1),"W", "E", 30, 11);
+
+        String input = "<return>";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("P2 Hand: (1):F5 (2):F5 (3):F5 (4):F5 (5):F5 (6):WS10 (7):WS10 (8):WS10 (9):WS10 (10):WB15 (11):WE30 (12):WE30"));
+    }
+
+    @Test
     @DisplayName("A-TEST JP-Scenario")
     void A_TEST_JP_SCENARIO(){
         Main game = new Main();
