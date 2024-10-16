@@ -576,7 +576,7 @@ class MainTest {
         game.initializeAdventureDeck();
         game.initializePlayers();
 
-        String input = "";
+        String input = "<return>";
         StringWriter output = new StringWriter();
         game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
 

@@ -373,7 +373,7 @@ public class Main {
     }
 
     void endPlayerTurn(Scanner input, PrintWriter output){
-
+        
     }
 
     void displayAdventureHand(player p, PrintWriter output){
