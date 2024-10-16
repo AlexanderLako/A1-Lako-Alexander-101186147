@@ -382,18 +382,22 @@ public class Main {
         if(checkWinner()){
             displayWinners(output);
         }
+        else{
+            if(currentPlayer.name.equals("P1")){
+                currentPlayer = players.get(1);
+            }
+            else if(currentPlayer.name.equals("P2")){
+                currentPlayer = players.get(2);
+            }
+            else if(currentPlayer.name.equals("P3")){
+                currentPlayer = players.get(3);
+            }
+            else if(currentPlayer.name.equals("P4")){
+                currentPlayer = players.get(0);
+            }
 
-        if(currentPlayer.name.equals("P1")){
-            currentPlayer = players.get(1);
-        }
-        else if(currentPlayer.name.equals("P2")){
-            currentPlayer = players.get(2);
-        }
-        else if(currentPlayer.name.equals("P3")){
-            currentPlayer = players.get(3);
-        }
-        else if(currentPlayer.name.equals("P4")){
-            currentPlayer = players.get(0);
+            output.println("It is now " + currentPlayer.name + " turn"); output.flush();
+            displayAdventureHand(currentPlayer, output);
         }
     }
 
