@@ -536,6 +536,54 @@ class MainTest {
     }
 
     @Test
+    @DisplayName("RESP 14.1: Test to end the current users turn and move onto the next player")
+    void RESP_14_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        //Game starts off with the current player being P1
+        String input = "";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertEquals(game.players.get(1), game.getCurrentPlayer());
+    }
+
+    @Test
+    @DisplayName("RESP 14.2: Test to check that when P4 turn is over, it goes back to P1")
+    void RESP_14_test_2(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.currentPlayer = game.players.get(3);
+
+        String input = "";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertEquals(game.players.get(0), game.getCurrentPlayer());
+    }
+
+    @Test
+    @DisplayName("RESP 14.3: Test that hotseat display is cleared once <return> is entered")
+    void RESP_14_test_3(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        String input = "";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("P1 turn has ended"));
+    }
+
+    @Test
     @DisplayName("A-TEST JP-Scenario")
     void A_TEST_JP_SCENARIO(){
         Main game = new Main();

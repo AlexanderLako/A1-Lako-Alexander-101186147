@@ -372,6 +372,10 @@ public class Main {
         String inputStr = input.nextLine();
     }
 
+    void endPlayerTurn(Scanner input, PrintWriter output){
+
+    }
+
     void displayAdventureHand(player p, PrintWriter output){
         output.print(p.name + " Hand:");
         for(int i = 0; i < getPlayerHandSize(p); i++){
