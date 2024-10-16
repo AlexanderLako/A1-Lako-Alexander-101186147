@@ -584,6 +584,23 @@ class MainTest {
     }
 
     @Test
+    @DisplayName("RESP 15.1: Test that if someone has won at the end of the turn, display the winners")
+    void RESP_15_test_1(){
+        Main game = new Main();
+        game.initializeEventDeck();
+        game.initializeAdventureDeck();
+        game.initializePlayers();
+
+        game.players.get(3).numShields = 7;
+
+        String input = "<return>";
+        StringWriter output = new StringWriter();
+        game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
+
+        assertTrue(output.toString().contains("Winner(s)!: P4"));
+    }
+
+    @Test
     @DisplayName("A-TEST JP-Scenario")
     void A_TEST_JP_SCENARIO(){
         Main game = new Main();
