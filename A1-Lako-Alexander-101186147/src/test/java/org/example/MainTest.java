@@ -544,7 +544,7 @@ class MainTest {
         game.initializePlayers();
 
         //Game starts off with the current player being P1
-        String input = "";
+        String input = "<return>";
         StringWriter output = new StringWriter();
         game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
 
@@ -561,7 +561,7 @@ class MainTest {
 
         game.currentPlayer = game.players.get(3);
 
-        String input = "";
+        String input = "<return>";
         StringWriter output = new StringWriter();
         game.endPlayerTurn(new Scanner(input), new PrintWriter(output));
 

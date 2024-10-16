@@ -373,7 +373,24 @@ public class Main {
     }
 
     void endPlayerTurn(Scanner input, PrintWriter output){
-        
+        output.println("Please enter the <return> key to end your turn"); output.flush();
+        String inputStr = input.nextLine();
+        if(inputStr.isEmpty() || inputStr.equals("<return>")){
+            output.println(currentPlayer.name + " turn has ended"); output.flush();
+        }
+
+        if(currentPlayer.name.equals("P1")){
+            currentPlayer = players.get(1);
+        }
+        else if(currentPlayer.name.equals("P2")){
+            currentPlayer = players.get(2);
+        }
+        else if(currentPlayer.name.equals("P3")){
+            currentPlayer = players.get(3);
+        }
+        else if(currentPlayer.name.equals("P4")){
+            currentPlayer = players.get(0);
+        }
     }
 
     void displayAdventureHand(player p, PrintWriter output){
