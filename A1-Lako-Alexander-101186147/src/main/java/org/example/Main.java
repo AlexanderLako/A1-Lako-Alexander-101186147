@@ -508,14 +508,18 @@ public class Main {
         int attackPower = 0;
         String inputStr = "";
 
-        //while(inputStr.toLowerCase() != "quit"){
-            output.println("Enter the number of the card you would like to use or enter quit to stop ");
-            inputStr = input.nextLine();
+        displayAdventureHand(p, output);
 
-            int inputNum = Integer.parseInt(inputStr);
-            attackPower += p.playersHand.get(inputNum-1).value;
-            adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
-        //}
+        output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); output.flush();
+        inputStr = input.nextLine();
+
+        if(inputStr.toLowerCase().equals("quit")){
+            return attackPower;
+        }
+
+        int inputNum = Integer.parseInt(inputStr);
+        attackPower += p.playersHand.get(inputNum-1).value;
+        adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
 
         return attackPower;
     }
