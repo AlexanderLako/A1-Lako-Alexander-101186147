@@ -379,6 +379,10 @@ public class Main {
             output.println(currentPlayer.name + " turn has ended"); output.flush();
         }
 
+        if(checkWinner()){
+            displayWinners(output);
+        }
+
         if(currentPlayer.name.equals("P1")){
             currentPlayer = players.get(1);
         }
