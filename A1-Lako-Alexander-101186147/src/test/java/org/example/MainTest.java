@@ -775,6 +775,13 @@ class MainTest {
         game.setAdventureCard(game.players.get(3),"W", "B", 15, 12);
         game.trimHand(game.players.get(3), new Scanner(input), new PrintWriter(output));
 
+        //game.players.get(2).playersHand.remove();
+        game.players.get(3).numShields = 4;
+        assertEquals(0, game.getPlayerNumShields(game.players.get(2)));
+        assertEquals(4, game.getPlayerNumShields(game.players.get(3)));
+        assertEquals(12, game.getPlayerHandSize(game.players.get(1)));
+        //assertEquals(5, game.getPlayerHandSize(game.players.get(2)));
+
     }
 
 }

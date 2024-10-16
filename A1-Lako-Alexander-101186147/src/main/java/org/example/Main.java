@@ -21,103 +21,106 @@ public class Main {
         game.drawEventCard();
         game.displayEventCard(game.currentEvent, new PrintWriter(output));
 
-        if(game.getNumFoe(game.currentPlayer) < game.currentEvent.stages){
-            for(int i = 0; i < 4; i++){
-                if(game.getNumFoe(game.players.get(i)) >= game.currentEvent.stages){
-                    System.out.print(game.players.get(i).name + " has decided to sponsor the quest");
-                    game.sponsorPlayerNum = i;
-                    break;
-                }
-            }
-        }
-        //System.out.println("The current player has decided to sponsor the quest");
+       //game.playEvent();
+        game.startQ();
 
-
-        for(int i = 0; i < 2; i++){
-            StringWriter output0 = new StringWriter();
-            game.displayAdventureHand(game.currentPlayer, new PrintWriter(output0));
-            System.out.println(output0);
-            System.out.println("Which Foe would you like to choose?");
-            int cardNum = Integer.parseInt(input.nextLine());
-            adventureCard questCard = game.players.get(game.sponsorPlayerNum).playersHand.get(cardNum);
-            game.adventureDiscardPile.add(game.players.get(game.sponsorPlayerNum).playersHand.remove(cardNum));
-            System.out.println("Quest has begun (all players are playing)");
-
-            System.out.println("P1 turn");
-            game.addCard(game.players.get(0));
-            System.out.println("Which card would you like to use?");
-            StringWriter output1 = new StringWriter();
-            game.displayAdventureHand(game.players.get(0), new PrintWriter(output1));
-            System.out.println(output1);
-            cardNum = Integer.parseInt(input.nextLine());
-            if(game.players.get(0).playersHand.get(cardNum).value >= questCard.value){
-                System.out.println("Attack was strong enough");
-                game.players.get(0).numShields++;
-            }
-            else{
-                System.out.println("Attack was too weak");
-            }
-            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
-
-            System.out.println("P2 turn");
-            game.addCard(game.players.get(1));
-            System.out.println("Which card would you like to use?");
-            StringWriter output2 = new StringWriter();
-            game.displayAdventureHand(game.players.get(1), new PrintWriter(output2));
-            System.out.println(output2);
-            cardNum = Integer.parseInt(input.nextLine());
-            if(game.players.get(1).playersHand.get(cardNum).value >= questCard.value){
-                System.out.println("Attack was strong enough");
-                game.players.get(1).numShields++;
-            }
-            else{
-                System.out.println("Attack was too weak");
-            }
-            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
-
-            System.out.println("P3 turn");
-            game.addCard(game.players.get(2));
-            System.out.println("Which card would you like to use?");
-            StringWriter output3 = new StringWriter();
-            game.displayAdventureHand(game.players.get(2), new PrintWriter(output3));
-            System.out.println(output3);
-            cardNum = Integer.parseInt(input.nextLine());
-            if(game.players.get(2).playersHand.get(cardNum).value >= questCard.value){
-                System.out.println("Attack was strong enough");
-                game.players.get(2).numShields++;
-            }
-            else{
-                System.out.println("Attack was too weak");
-            }
-            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
-
-            System.out.println("P4 turn");
-            game.addCard(game.players.get(3));
-            System.out.println("Which card would you like to use?");
-            StringWriter output4 = new StringWriter();
-            game.displayAdventureHand(game.players.get(3), new PrintWriter(output4));
-            System.out.println(output4);
-            cardNum = Integer.parseInt(input.nextLine());
-            if(game.players.get(3).playersHand.get(cardNum).value >= questCard.value){
-                System.out.println("Attack was strong enough");
-                game.players.get(3).numShields++;
-            }
-            else{
-                System.out.println("Attack was too weak");
-            }
-            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
-        }
-
-
-        if(game.checkWinner()){
-            StringWriter outputWinner = new StringWriter();
-            game.displayWinners(new PrintWriter(outputWinner));
-            System.out.println(outputWinner);
-            System.exit(0);
-        }
-        else{
-            System.out.println("No one has enough shields to win yet!");
-        }
+//        if(game.getNumFoe(game.currentPlayer) < game.currentEvent.stages){
+//            for(int i = 0; i < 4; i++){
+//                if(game.getNumFoe(game.players.get(i)) >= game.currentEvent.stages){
+//                    System.out.print(game.players.get(i).name + " has decided to sponsor the quest");
+//                    game.sponsorPlayerNum = i;
+//                    break;
+//                }
+//            }
+//        }
+//        //System.out.println("The current player has decided to sponsor the quest");
+//
+//
+//        for(int i = 0; i < 2; i++){
+//            StringWriter output0 = new StringWriter();
+//            game.displayAdventureHand(game.currentPlayer, new PrintWriter(output0));
+//            System.out.println(output0);
+//            System.out.println("Which Foe would you like to choose?");
+//            int cardNum = Integer.parseInt(input.nextLine());
+//            adventureCard questCard = game.players.get(game.sponsorPlayerNum).playersHand.get(cardNum);
+//            game.adventureDiscardPile.add(game.players.get(game.sponsorPlayerNum).playersHand.remove(cardNum));
+//            System.out.println("Quest has begun (all players are playing)");
+//
+//            System.out.println("P1 turn");
+//            game.addCard(game.players.get(0));
+//            System.out.println("Which card would you like to use?");
+//            StringWriter output1 = new StringWriter();
+//            game.displayAdventureHand(game.players.get(0), new PrintWriter(output1));
+//            System.out.println(output1);
+//            cardNum = Integer.parseInt(input.nextLine());
+//            if(game.players.get(0).playersHand.get(cardNum).value >= questCard.value){
+//                System.out.println("Attack was strong enough");
+//                game.players.get(0).numShields++;
+//            }
+//            else{
+//                System.out.println("Attack was too weak");
+//            }
+//            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
+//
+//            System.out.println("P2 turn");
+//            game.addCard(game.players.get(1));
+//            System.out.println("Which card would you like to use?");
+//            StringWriter output2 = new StringWriter();
+//            game.displayAdventureHand(game.players.get(1), new PrintWriter(output2));
+//            System.out.println(output2);
+//            cardNum = Integer.parseInt(input.nextLine());
+//            if(game.players.get(1).playersHand.get(cardNum).value >= questCard.value){
+//                System.out.println("Attack was strong enough");
+//                game.players.get(1).numShields++;
+//            }
+//            else{
+//                System.out.println("Attack was too weak");
+//            }
+//            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
+//
+//            System.out.println("P3 turn");
+//            game.addCard(game.players.get(2));
+//            System.out.println("Which card would you like to use?");
+//            StringWriter output3 = new StringWriter();
+//            game.displayAdventureHand(game.players.get(2), new PrintWriter(output3));
+//            System.out.println(output3);
+//            cardNum = Integer.parseInt(input.nextLine());
+//            if(game.players.get(2).playersHand.get(cardNum).value >= questCard.value){
+//                System.out.println("Attack was strong enough");
+//                game.players.get(2).numShields++;
+//            }
+//            else{
+//                System.out.println("Attack was too weak");
+//            }
+//            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
+//
+//            System.out.println("P4 turn");
+//            game.addCard(game.players.get(3));
+//            System.out.println("Which card would you like to use?");
+//            StringWriter output4 = new StringWriter();
+//            game.displayAdventureHand(game.players.get(3), new PrintWriter(output4));
+//            System.out.println(output4);
+//            cardNum = Integer.parseInt(input.nextLine());
+//            if(game.players.get(3).playersHand.get(cardNum).value >= questCard.value){
+//                System.out.println("Attack was strong enough");
+//                game.players.get(3).numShields++;
+//            }
+//            else{
+//                System.out.println("Attack was too weak");
+//            }
+//            game.adventureDiscardPile.add(game.players.get(3).playersHand.remove(cardNum));
+//        }
+//
+//
+//        if(game.checkWinner()){
+//            StringWriter outputWinner = new StringWriter();
+//            game.displayWinners(new PrintWriter(outputWinner));
+//            System.out.println(outputWinner);
+//            System.exit(0);
+//        }
+//        else{
+//            System.out.println("No one has enough shields to win yet!");
+//        }
 
 
 
@@ -367,6 +370,183 @@ public class Main {
         }
     }
 
+    void startQ(){
+        String inputStr = "yes";
+        ArrayList<player> playersPlaying = new ArrayList<player>();
+        Scanner s = new Scanner(System.in);
+        System.out.println(currentPlayer.name + " Would you like to sponsor the current quest?");
+        //System.out.println("Would you like to sponsor the current quest?");
+        inputStr = s.nextLine();
+
+        if(inputStr.toLowerCase().equals("yes")){
+            System.out.println(currentPlayer.name + " has decided to sponsor the quest");
+            sponsorPlayerNum = players.indexOf(currentPlayer);
+        }
+
+        System.out.println(" P2 Would you like to withdraw from the quest?");
+        inputStr = s.nextLine();
+        if(inputStr.toLowerCase().equals("yes")){
+
+        }
+        else{
+            playersPlaying.add(players.get(1));
+            addCard(players.get(1));
+            if(getTrimAmount(players.get(1)) != 0){
+                String input = "1";
+                StringWriter output = new StringWriter();
+                trimHand(players.get(1), new Scanner(input), new PrintWriter(output));
+                //players.get(1).playersHand.removeFirst();
+            }
+        }
+
+        System.out.println(" P3 Would you like to withdraw from the quest?");
+        inputStr = s.nextLine();
+        if(inputStr.toLowerCase().equals("yes")){
+
+        }
+        else{
+            playersPlaying.add(players.get(2));
+            addCard(players.get(2));
+            if(getTrimAmount(players.get(2)) != 0){
+                String input = "1";
+                StringWriter output = new StringWriter();
+                trimHand(players.get(2), new Scanner(input), new PrintWriter(output));
+            }
+        }
+
+        System.out.println(" P4 Would you like to withdraw from the quest?");
+        inputStr = s.nextLine();
+        if(inputStr.toLowerCase().equals("yes")){
+
+        }
+        else{
+            playersPlaying.add(players.get(2));
+            addCard(players.get(3));
+            if(getTrimAmount(players.get(3)) != 0){
+                String input = "1";
+                StringWriter output = new StringWriter();
+                trimHand(players.get(3), new Scanner(input), new PrintWriter(output));
+            }
+        }
+
+        System.out.println("Select the foe you would like to use for the quest");
+        StringWriter output = new StringWriter();
+        displayAdventureHand(currentPlayer, new PrintWriter(output));
+        System.out.println(output);
+        inputStr = s.nextLine();
+
+        int foe1Points = currentPlayer.playersHand.get(Integer.parseInt(inputStr)-1).value;
+
+        String input = "quit";
+        StringWriter output1 = new StringWriter();
+        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output1));
+        System.out.println(output1);
+        inputStr = s.nextLine();
+        int attack = buildAttack(players.get(1), new Scanner(inputStr), new PrintWriter(output1));
+
+        if(attack < foe1Points){
+            System.out.println("Attack failed");
+            playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        input = "quit";
+        StringWriter output2 = new StringWriter();
+        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output2));
+        System.out.println(output2);
+        inputStr = s.nextLine();
+        int attack2 = buildAttack(players.get(2), new Scanner(inputStr), new PrintWriter(output2));
+
+        if(attack2 < foe1Points){
+            System.out.println("Attack failed");
+            playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        input = "quit";
+        StringWriter output3 = new StringWriter();
+        buildAttack(players.get(3), new Scanner(input), new PrintWriter(output3));
+        System.out.println(output3);
+        inputStr = s.nextLine();
+        int attack3 = buildAttack(players.get(3), new Scanner(inputStr), new PrintWriter(output3));
+
+        if(attack2 < foe1Points){
+            System.out.println("Attack failed");
+            playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        System.out.println("Select the foe you would like to use for the quest");
+        StringWriter output4 = new StringWriter();
+        displayAdventureHand(currentPlayer, new PrintWriter(output4));
+        System.out.println(output4);
+        inputStr = s.nextLine();
+        int foe2Points = currentPlayer.playersHand.get(Integer.parseInt(inputStr)-1).value;
+
+        input = "quit";
+        StringWriter output11 = new StringWriter();
+        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output11));
+        System.out.println(output11);
+        inputStr = s.nextLine();
+        int attack11 = buildAttack(players.get(1), new Scanner(inputStr), new PrintWriter(output11));
+
+        if(attack11 < foe2Points){
+            System.out.println("Attack failed");
+            //playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        input = "quit";
+        StringWriter output22 = new StringWriter();
+        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output22));
+        System.out.println(output22);
+        inputStr = s.nextLine();
+        int attack22 = buildAttack(players.get(2), new Scanner(inputStr), new PrintWriter(output22));
+
+        if(attack22 < foe2Points){
+            System.out.println("Attack failed");
+            //playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        input = "quit";
+        StringWriter output33 = new StringWriter();
+        buildAttack(players.get(3), new Scanner(input), new PrintWriter(output33));
+        System.out.println(output33);
+        inputStr = s.nextLine();
+        int attack33= buildAttack(players.get(3), new Scanner(inputStr), new PrintWriter(output33));
+
+        if(attack33 < foe2Points){
+            System.out.println("Attack failed");
+            //playersPlaying.remove(0);
+        }
+        else{
+            System.out.println("Attack Worked!");
+        }
+
+        if(checkWinner()){
+            StringWriter win = new StringWriter();
+            displayWinners(new PrintWriter(win));
+        }
+        else{
+            String in = "<return>";
+            StringWriter out = new StringWriter();
+            endPlayerTurn(new Scanner(in), new PrintWriter(out));
+        }
+
+    }
+
+
     void startQuest(Scanner input, PrintWriter output){
         output.println("Would you like to sponsor the current quest?"); output.flush();
         String inputStr = input.nextLine();
@@ -510,7 +690,7 @@ public class Main {
 
         displayAdventureHand(p, output);
 
-        output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); output.flush();
+        output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); //output.flush();
         inputStr = input.nextLine();
 
         if(inputStr.toLowerCase().equals("quit")){
