@@ -14,14 +14,35 @@ public class Main {
         game.initializeEventDeck();
         game.initializeAdventureDeck();
         game.initializePlayers();
-        StringWriter output = new StringWriter();
-        Scanner input = new Scanner(System.in);
 
         game.setEventCard("Q",2,0);
-        game.drawEventCard();
-        game.displayEventCard(game.currentEvent, new PrintWriter(output));
 
-       game.playEvent();
+        while(!game.checkWinner()){
+            StringWriter output = new StringWriter();
+            Scanner input = new Scanner(System.in);
+
+            game.drawEventCard();
+            game.displayEventCard(game.currentEvent, new PrintWriter(output));
+            System.out.println(output);
+
+            game.playEvent();
+            if(game.checkWinner()){break;}
+
+            String in = "<return>";
+            StringWriter out = new StringWriter();
+            game.endPlayerTurn(new Scanner(in), new PrintWriter(out));
+            System.out.println(out);
+
+        }
+
+        StringWriter win = new StringWriter();
+        game.displayWinners(new PrintWriter(win));
+        System.out.println(win);
+
+
+
+
+
        // game.startQ();
 
 //        if(game.getNumFoe(game.currentPlayer) < game.currentEvent.stages){
@@ -172,7 +193,7 @@ public class Main {
     ArrayList<eventCard> eventDiscardPile = new ArrayList<eventCard>();
 
     ArrayList<player> players = new ArrayList<player>();
-    ArrayList<player> playersPlaying = players;
+    ArrayList<player> playersPlaying = new ArrayList<>();
     player currentPlayer = new player("");
 
     eventCard currentEvent = new eventCard("");
@@ -297,6 +318,7 @@ public class Main {
         for(int i = 0; i < numPlayers; i++){
             player p = new player("P" + Integer.toString(i+1));
             players.add(p);
+            playersPlaying.add(p);
 
             while (getPlayerHandSize(p) < handSize) {
                 addCard(p);
@@ -451,6 +473,7 @@ public class Main {
     }
 
 
+
     void startQ(){
         String inputStr = "yes";
         Scanner s = new Scanner(System.in);
@@ -467,159 +490,86 @@ public class Main {
         widthdrawOrTackle();
 
 
+        for(int i = 0; i < currentEvent.stages; i++){
+            if(playersPlaying.isEmpty()){break;}
 
-
-
-
-
-        System.out.println("Select the foe you would like to use for the quest");
-        StringWriter output = new StringWriter();
-        displayAdventureHand(currentPlayer, new PrintWriter(output));
-        System.out.println(output);
-        inputStr = s.nextLine();
-
-        int foe1Points = currentPlayer.playersHand.get(Integer.parseInt(inputStr)-1).value;
-
-        String input = "quit";
-        StringWriter output1 = new StringWriter();
-        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output1));
-        System.out.println(output1);
-        inputStr = s.nextLine();
-        int attack = buildAttack(players.get(1), new Scanner(inputStr), new PrintWriter(output1));
-
-        if(attack < foe1Points){
-            System.out.println("Attack failed");
-            playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        input = "quit";
-        StringWriter output2 = new StringWriter();
-        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output2));
-        System.out.println(output2);
-        inputStr = s.nextLine();
-        int attack2 = buildAttack(players.get(2), new Scanner(inputStr), new PrintWriter(output2));
-
-        if(attack2 < foe1Points){
-            System.out.println("Attack failed");
-            playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        input = "quit";
-        StringWriter output3 = new StringWriter();
-        buildAttack(players.get(3), new Scanner(input), new PrintWriter(output3));
-        System.out.println(output3);
-        inputStr = s.nextLine();
-        int attack3 = buildAttack(players.get(3), new Scanner(inputStr), new PrintWriter(output3));
-
-        if(attack2 < foe1Points){
-            System.out.println("Attack failed");
-            playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        System.out.println("Select the foe you would like to use for the quest");
-        StringWriter output4 = new StringWriter();
-        displayAdventureHand(currentPlayer, new PrintWriter(output4));
-        System.out.println(output4);
-        inputStr = s.nextLine();
-        int foe2Points = currentPlayer.playersHand.get(Integer.parseInt(inputStr)-1).value;
-
-        input = "quit";
-        StringWriter output11 = new StringWriter();
-        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output11));
-        System.out.println(output11);
-        inputStr = s.nextLine();
-        int attack11 = buildAttack(players.get(1), new Scanner(inputStr), new PrintWriter(output11));
-
-        if(attack11 < foe2Points){
-            System.out.println("Attack failed");
-            //playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        input = "quit";
-        StringWriter output22 = new StringWriter();
-        buildAttack(players.get(1), new Scanner(input), new PrintWriter(output22));
-        System.out.println(output22);
-        inputStr = s.nextLine();
-        int attack22 = buildAttack(players.get(2), new Scanner(inputStr), new PrintWriter(output22));
-
-        if(attack22 < foe2Points){
-            System.out.println("Attack failed");
-            //playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        input = "quit";
-        StringWriter output33 = new StringWriter();
-        buildAttack(players.get(3), new Scanner(input), new PrintWriter(output33));
-        System.out.println(output33);
-        inputStr = s.nextLine();
-        int attack33= buildAttack(players.get(3), new Scanner(inputStr), new PrintWriter(output33));
-
-        if(attack33 < foe2Points){
-            System.out.println("Attack failed");
-            //playersPlaying.remove(0);
-        }
-        else{
-            System.out.println("Attack Worked!");
-        }
-
-        if(checkWinner()){
-            StringWriter win = new StringWriter();
-            displayWinners(new PrintWriter(win));
-        }
-        else{
-            String in = "<return>";
             StringWriter out = new StringWriter();
-            endPlayerTurn(new Scanner(in), new PrintWriter(out));
+            displayAdventureHand(players.get(sponsorPlayerNum), new PrintWriter(out));
+            System.out.println(out);
+
+            System.out.println("Select the foe you would like to use for this stage");
+            inputStr = s.nextLine();
+            int foePoints = players.get(sponsorPlayerNum).playersHand.get(Integer.parseInt(inputStr)-1).value;
+            System.out.println(foePoints);
+
+            players.get(sponsorPlayerNum).playersHand.remove(Integer.parseInt(inputStr)-1);
+
+            ArrayList<player> temp = new ArrayList<>();
+
+            for(int j = 0; j < playersPlaying.size(); j++){
+                StringWriter out2 = new StringWriter();
+                String input = "quit";
+                int attackPower = buildAttack(playersPlaying.get(j), new Scanner(input), new PrintWriter(out2));
+
+                if(attackPower < foePoints){
+                    System.out.println("Attack failed!");
+                    player tempPlayer = playersPlaying.get(i);
+                    temp.add(tempPlayer);
+                }
+                else{
+                    System.out.println("Attack worked!");
+                }
+            }
+
+            for(int l = 0; l < temp.size(); l++){
+                playersPlaying.remove(temp.get(l));
+            }
         }
+
+        System.out.println("Quest over!");
+        for(int i = 0; i < playersPlaying.size(); i++){
+            players.get(players.indexOf(playersPlaying.get(i))).numShields += currentEvent.stages;
+        }
+
+        currentPlayer = startingPlayer;
+        playersPlaying.clear();
+        for(int j = 0; j < 4; j++){
+            playersPlaying.add(players.get(j));
+        }
+
+
+
+//        if(checkWinner()){
+//            StringWriter win = new StringWriter();
+//            displayWinners(new PrintWriter(win));
+//            System.out.println(win);
+//        }
+//        else{
+//            String in = "<return>";
+//            StringWriter out = new StringWriter();
+//            endPlayerTurn(new Scanner(in), new PrintWriter(out));
+//            System.out.println(out);
+//        }
 
     }
 
     void endPlayerTurn(Scanner input, PrintWriter output){
+        Scanner s = new Scanner(System.in);
         output.println("Please enter the <return> key to end your turn"); output.flush();
-        String inputStr = input.nextLine();
+        System.out.println("Please enter the <return> key to end your turn");
+        String inputStr = s.nextLine();
+
         if(inputStr.isEmpty() || inputStr.equals("<return>")){
             output.println(currentPlayer.name + " turn has ended"); output.flush();
         }
 
-        if(checkWinner()){
-            displayWinners(output);
-        }
-        else{
-            if(currentPlayer.name.equals("P1")){
-                currentPlayer = players.get(1);
-            }
-            else if(currentPlayer.name.equals("P2")){
-                currentPlayer = players.get(2);
-            }
-            else if(currentPlayer.name.equals("P3")){
-                currentPlayer = players.get(3);
-            }
-            else if(currentPlayer.name.equals("P4")){
-                currentPlayer = players.get(0);
-            }
+        nextPlayer();
 
-            output.println("It is now " + currentPlayer.name + " turn"); output.flush();
-            displayAdventureHand(currentPlayer, output);
-        }
+        output.println("It is now " + currentPlayer.name + " turn"); output.flush();
     }
 
     void displayAdventureHand(player p, PrintWriter output){
-        output.print(p.name + " Hand:");
+        output.print(p.name + " Hand:"); output.flush();
         for(int i = 0; i < getPlayerHandSize(p); i++){
             output.print(" ("+(i+1)+"):" + p.playersHand.get(i).type + p.playersHand.get(i).category + p.playersHand.get(i).value);
         }
@@ -732,19 +682,27 @@ public class Main {
     int buildAttack(player p, Scanner input, PrintWriter output){
         int attackPower = 0;
         String inputStr = "";
+        Scanner s = new Scanner(System.in);
+        
+        //output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); //output.flush();
+        while(inputStr != "quit"){
 
-        displayAdventureHand(p, output);
+            StringWriter out = new StringWriter();
+            displayAdventureHand(p, new PrintWriter(out));
+            System.out.println(out);
 
-        output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); //output.flush();
-        inputStr = input.nextLine();
+            System.out.println("Enter the card number you would like to use for your attack OR enter 'quit'");
+            inputStr = s.nextLine();
 
-        if(inputStr.toLowerCase().equals("quit")){
-            return attackPower;
+            if(inputStr.toLowerCase().equals("quit")){
+                return attackPower;
+            }
+
+            int inputNum = Integer.parseInt(inputStr);
+            attackPower += p.playersHand.get(inputNum-1).value;
+            adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
         }
 
-        int inputNum = Integer.parseInt(inputStr);
-        attackPower += p.playersHand.get(inputNum-1).value;
-        adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
 
         return attackPower;
     }
