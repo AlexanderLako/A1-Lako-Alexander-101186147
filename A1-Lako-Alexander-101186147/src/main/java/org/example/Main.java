@@ -15,34 +15,34 @@ public class Main {
         game.initializeAdventureDeck();
         game.initializePlayers();
 
-        game.setEventCard("Q",2,0);
-
-        while(!game.checkWinner()){
-            StringWriter output = new StringWriter();
-            Scanner input = new Scanner(System.in);
-
-            game.drawEventCard();
-            game.displayEventCard(game.currentEvent, new PrintWriter(output));
-            System.out.println(output);
-
-            game.playEvent();
-            if(game.checkWinner()){break;}
-
-            while(game.players.get(game.sponsorPlayerNum).playersHand.size() < 12){
-                game.addCard(game.players.get(game.sponsorPlayerNum));
-
-            }
-
-            String in = "<return>";
-            StringWriter out = new StringWriter();
-            game.endPlayerTurn(new Scanner(in), new PrintWriter(out));
-            System.out.println(out);
-
-        }
-
-        StringWriter win = new StringWriter();
-        game.displayWinners(new PrintWriter(win));
-        System.out.println(win);
+//        game.setEventCard("Q",2,0);
+//
+//        while(!game.checkWinner()){
+//            StringWriter output = new StringWriter();
+//            Scanner input = new Scanner(System.in);
+//
+//            game.drawEventCard();
+//            game.displayEventCard(game.currentEvent, new PrintWriter(output));
+//            System.out.println(output);
+//
+//            game.playEvent();
+//            if(game.checkWinner()){break;}
+//
+//            while(game.players.get(game.sponsorPlayerNum).playersHand.size() < 12){
+//                game.addCard(game.players.get(game.sponsorPlayerNum));
+//
+//            }
+//
+//            String in = "<return>";
+//            StringWriter out = new StringWriter();
+//            game.endPlayerTurn(new Scanner(in), new PrintWriter(out));
+//            System.out.println(out);
+//
+//        }
+//
+//        StringWriter win = new StringWriter();
+//        game.displayWinners(new PrintWriter(win));
+//        System.out.println(win);
 
 
 
@@ -95,9 +95,11 @@ public class Main {
     ArrayList<player> players = new ArrayList<player>();
     ArrayList<player> playersPlaying = new ArrayList<>();
     player currentPlayer = new player("");
+    ArrayList<player> temp = new ArrayList<>();
 
     eventCard currentEvent = new eventCard("");
     int sponsorPlayerNum = 0;
+    int foePoints = 0;
 
     int numPlayers = 4;
     int handSize = 12;
@@ -346,30 +348,57 @@ public class Main {
         return 0;
     }
 
-    void widthdrawOrTackle(){
+    void withdrawOrTackle(player p, Scanner input){
         Scanner s = new Scanner(System.in);
-        String inputStr = "yes";
-        ArrayList<player> temp = new ArrayList<>();
+        String inputStr = input.nextLine();
+
+        if(inputStr.equals("withdraw")){
+            temp.add(playersPlaying.get(playersPlaying.indexOf(p)));
+            return;
+        }
+        else if(inputStr.equals("partake")){
+            addCard(p);
+            return;
+            //String in = "1";
+            //StringWriter output = new StringWriter();
+            //trimHand(p, new Scanner(in), new PrintWriter(output));
+        }
 
 
-        for(int i = 0; i < playersPlaying.size(); i++){
-            System.out.println(playersPlaying.get(i).name + " Would you like to withdraw from the quest?");
+            System.out.println(p.name + " Would you like to withdraw from the quest?");
             inputStr = s.nextLine();
             if(inputStr.toLowerCase().equals("yes")){
-                player tempPlayer = playersPlaying.get(i);
-                temp.add(tempPlayer);
+                temp.add(playersPlaying.get(playersPlaying.indexOf(p)));
             }
-            else{
-                addCard(playersPlaying.get(i));
-                String input = "1";
+            else {
+                addCard(p);
+                String in = "1";
                 StringWriter output = new StringWriter();
-                trimHand(playersPlaying.get(i), new Scanner(input), new PrintWriter(output));
+                trimHand(p, new Scanner(in), new PrintWriter(output));
             }
-        }
-        for(int i = 0; i < temp.size(); i++){
-            playersPlaying.remove(temp.get(i));
+
+    }
+
+    void buildStage(Scanner input){
+        Scanner s = new Scanner(System.in);
+        String inputStr = input.nextLine();
+
+        if(!inputStr.equals("-1")){
+            foePoints = players.get(sponsorPlayerNum).playersHand.get(Integer.parseInt(inputStr)-1).value;
+            players.get(sponsorPlayerNum).playersHand.remove(Integer.parseInt(inputStr)-1);
+            return;
         }
 
+        StringWriter out = new StringWriter();
+        displayAdventureHand(players.get(sponsorPlayerNum), new PrintWriter(out));
+        System.out.println(out);
+
+        System.out.println("Select the foe you would like to use for this stage");
+        inputStr = s.nextLine();
+        foePoints = players.get(sponsorPlayerNum).playersHand.get(Integer.parseInt(inputStr)-1).value;
+        System.out.println(foePoints);
+
+        players.get(sponsorPlayerNum).playersHand.remove(Integer.parseInt(inputStr)-1);
     }
 
 
@@ -387,29 +416,27 @@ public class Main {
 
         playersPlaying.remove(sponsorPlayerNum);
 
-        widthdrawOrTackle();
+        String input = "";
+        for(int i = 0; i < playersPlaying.size(); i++){
+            withdrawOrTackle(playersPlaying.get(i), new Scanner(input));
+        }
+        for(int k = 0; k < temp.size(); k++){
+            playersPlaying.remove(playersPlaying.indexOf(temp.get(k)));
+        }
+        temp.clear();
 
 
         for(int i = 0; i < currentEvent.stages; i++){
             if(playersPlaying.isEmpty()){break;}
 
-            StringWriter out = new StringWriter();
-            displayAdventureHand(players.get(sponsorPlayerNum), new PrintWriter(out));
-            System.out.println(out);
-
-            System.out.println("Select the foe you would like to use for this stage");
-            inputStr = s.nextLine();
-            int foePoints = players.get(sponsorPlayerNum).playersHand.get(Integer.parseInt(inputStr)-1).value;
-            System.out.println(foePoints);
-
-            players.get(sponsorPlayerNum).playersHand.remove(Integer.parseInt(inputStr)-1);
+            buildStage(new Scanner("-1"));
 
             ArrayList<player> temp = new ArrayList<>();
 
             for(int j = 0; j < playersPlaying.size(); j++){
                 StringWriter out2 = new StringWriter();
-                String input = "quit";
-                int attackPower = buildAttack(playersPlaying.get(j), new Scanner(input), new PrintWriter(out2));
+                String input1 = "0";
+                int attackPower = buildAttack(playersPlaying.get(j), new Scanner(input1), new PrintWriter(out2));
 
                 if(attackPower < foePoints){
                     System.out.println("Attack failed!");
@@ -568,11 +595,11 @@ public class Main {
 
     int buildAttack(player p, Scanner input, PrintWriter output){
         int attackPower = 0;
-        String inputStr = "";
+        String inputStr = input.nextLine();
         Scanner s = new Scanner(System.in);
 
         //output.println("Enter the card number you would like to use for your attack OR enter 'quit'"); //output.flush();
-        while(inputStr != "quit"){
+        while(!inputStr.equals("quit")){
 
             StringWriter out = new StringWriter();
             displayAdventureHand(p, new PrintWriter(out));
