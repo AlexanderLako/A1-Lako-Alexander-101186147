@@ -1,3 +1,3 @@
-COMP 4004 A1
+COMP 4004 A1 & A2
 Alexander Lako
 101186147
