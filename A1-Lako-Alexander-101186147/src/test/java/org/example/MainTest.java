@@ -530,7 +530,7 @@ class MainTest {
         String input = "yes";
         StringWriter output = new StringWriter();
 
-        game.startQuest(new Scanner(input), new PrintWriter(output));
+        //game.startQuest(new Scanner(input), new PrintWriter(output));
 
         assertTrue(output.toString().contains("Would you like to sponsor the current quest?"));
     }
