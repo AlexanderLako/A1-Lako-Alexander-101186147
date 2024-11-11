@@ -21,8 +21,8 @@ public class Main {
         game.drawEventCard();
         game.displayEventCard(game.currentEvent, new PrintWriter(output));
 
-       //game.playEvent();
-        game.startQ();
+       game.playEvent();
+       // game.startQ();
 
 //        if(game.getNumFoe(game.currentPlayer) < game.currentEvent.stages){
 //            for(int i = 0; i < 4; i++){
@@ -172,6 +172,7 @@ public class Main {
     ArrayList<eventCard> eventDiscardPile = new ArrayList<eventCard>();
 
     ArrayList<player> players = new ArrayList<player>();
+    ArrayList<player> playersPlaying = players;
     player currentPlayer = new player("");
 
     eventCard currentEvent = new eventCard("");
@@ -350,84 +351,126 @@ public class Main {
             }
         }
         else if(currentEvent.type.equals("Queens favor")){
+            StringWriter output = new StringWriter();
+            String input = "";
             addCard(currentPlayer);
             addCard(currentPlayer);
+            trimHand(currentPlayer, new Scanner(input), new PrintWriter(output));
         }
         else if(currentEvent.type.equals("Prosperity")){
+            StringWriter output0 = new StringWriter();
+            StringWriter output1 = new StringWriter();
+            StringWriter output2 = new StringWriter();
+            StringWriter output3 = new StringWriter();
+            String input = "";
+
             addCard(players.get(0));
             addCard(players.get(0));
+            trimHand(playersPlaying.get(0), new Scanner(input), new PrintWriter(output0));
+
             addCard(players.get(1));
             addCard(players.get(1));
+            trimHand(playersPlaying.get(1), new Scanner(input), new PrintWriter(output1));
+
             addCard(players.get(2));
             addCard(players.get(2));
+            trimHand(playersPlaying.get(2), new Scanner(input), new PrintWriter(output2));
+
             addCard(players.get(3));
             addCard(players.get(3));
+            trimHand(playersPlaying.get(3), new Scanner(input), new PrintWriter(output3));
         }
         else if(currentEvent.type.equals("Q")){
-            String input = "";
-            StringWriter output = new StringWriter();
-            startQuest(new Scanner(input), new PrintWriter(output));
+            startQ();
         }
     }
 
+    void nextPlayer(){
+        if(players.indexOf(currentPlayer) == 0){
+            currentPlayer = players.get(1);
+            return;
+        }
+        else if(players.indexOf(currentPlayer) == 1){
+            currentPlayer = players.get(2);
+            return;
+        }
+        else if(players.indexOf(currentPlayer) == 2){
+            currentPlayer = players.get(3);
+            return;
+        }
+        else if(players.indexOf(currentPlayer) == 3){
+            currentPlayer = players.get(0);
+            return;
+        }
+    }
+
+    int findSponsor(){
+        String inputStr = "yes";
+        Scanner s = new Scanner(System.in);
+
+        for(int i = 0; i < 4; i++) {
+
+            System.out.println(currentPlayer.name + " Would you like to sponsor the current quest?");
+            inputStr = s.nextLine();
+
+            if (inputStr.toLowerCase().equals("yes")) {
+                System.out.println(currentPlayer.name + " has decided to sponsor the quest");
+                sponsorPlayerNum = players.indexOf(currentPlayer);
+                return 1;
+            } else {
+                nextPlayer();
+            }
+        }
+        return 0;
+    }
+
+    void widthdrawOrTackle(){
+        Scanner s = new Scanner(System.in);
+        String inputStr = "yes";
+        ArrayList<player> temp = new ArrayList<>();
+
+
+        for(int i = 0; i < playersPlaying.size(); i++){
+            System.out.println(playersPlaying.get(i).name + " Would you like to withdraw from the quest?");
+            inputStr = s.nextLine();
+            if(inputStr.toLowerCase().equals("yes")){
+                player tempPlayer = playersPlaying.get(i);
+                temp.add(tempPlayer);
+            }
+            else{
+                addCard(playersPlaying.get(i));
+                String input = "1";
+                StringWriter output = new StringWriter();
+                trimHand(playersPlaying.get(i), new Scanner(input), new PrintWriter(output));
+            }
+        }
+        for(int i = 0; i < temp.size(); i++){
+            playersPlaying.remove(temp.get(i));
+        }
+
+    }
+
+
     void startQ(){
         String inputStr = "yes";
-        ArrayList<player> playersPlaying = new ArrayList<player>();
         Scanner s = new Scanner(System.in);
-        System.out.println(currentPlayer.name + " Would you like to sponsor the current quest?");
-        //System.out.println("Would you like to sponsor the current quest?");
-        inputStr = s.nextLine();
+        player startingPlayer = currentPlayer;
 
-        if(inputStr.toLowerCase().equals("yes")){
-            System.out.println(currentPlayer.name + " has decided to sponsor the quest");
-            sponsorPlayerNum = players.indexOf(currentPlayer);
+        int foundSponsor = findSponsor();
+        if(foundSponsor == 0){
+            System.out.println("No one has decided to sponsor the quest!");
+            return;
         }
 
-        System.out.println(" P2 Would you like to withdraw from the quest?");
-        inputStr = s.nextLine();
-        if(inputStr.toLowerCase().equals("yes")){
+        playersPlaying.remove(sponsorPlayerNum);
 
-        }
-        else{
-            playersPlaying.add(players.get(1));
-            addCard(players.get(1));
-            if(getTrimAmount(players.get(1)) != 0){
-                String input = "1";
-                StringWriter output = new StringWriter();
-                trimHand(players.get(1), new Scanner(input), new PrintWriter(output));
-                //players.get(1).playersHand.removeFirst();
-            }
-        }
+        widthdrawOrTackle();
 
-        System.out.println(" P3 Would you like to withdraw from the quest?");
-        inputStr = s.nextLine();
-        if(inputStr.toLowerCase().equals("yes")){
 
-        }
-        else{
-            playersPlaying.add(players.get(2));
-            addCard(players.get(2));
-            if(getTrimAmount(players.get(2)) != 0){
-                String input = "1";
-                StringWriter output = new StringWriter();
-                trimHand(players.get(2), new Scanner(input), new PrintWriter(output));
-            }
-        }
 
-        System.out.println(" P4 Would you like to withdraw from the quest?");
-        inputStr = s.nextLine();
-        if(inputStr.toLowerCase().equals("yes")){
 
-        }
-        else{
-            playersPlaying.add(players.get(2));
-            addCard(players.get(3));
-            if(getTrimAmount(players.get(3)) != 0){
-                String input = "1";
-                StringWriter output = new StringWriter();
-                trimHand(players.get(3), new Scanner(input), new PrintWriter(output));
-            }
-        }
+
+
 
         System.out.println("Select the foe you would like to use for the quest");
         StringWriter output = new StringWriter();
@@ -546,12 +589,6 @@ public class Main {
 
     }
 
-
-    void startQuest(Scanner input, PrintWriter output){
-        output.println("Would you like to sponsor the current quest?"); output.flush();
-        String inputStr = input.nextLine();
-    }
-
     void endPlayerTurn(Scanner input, PrintWriter output){
         output.println("Please enter the <return> key to end your turn"); output.flush();
         String inputStr = input.nextLine();
@@ -590,24 +627,36 @@ public class Main {
     }
 
     void trimHand(player p, Scanner input, PrintWriter output){
-        output.println("Enter the number of the card you would to delete: ");
-        String inputStr = input.nextLine();
 
-        int inputNum = -1;
-        try {
-            inputNum = Integer.parseInt(inputStr);
-        } catch(NumberFormatException e){
-            output.println("invalid input"); output.flush();
-            return;
+        Scanner s = new Scanner(System.in);
+
+        StringWriter out = new StringWriter();
+        displayAdventureHand(p, new PrintWriter(out));
+        System.out.println(out);
+
+        while(getPlayerHandSize(p) > 12){
+            //output.println("Enter the number of the card you would to delete: ");
+            System.out.println("Enter the number of the card you would to delete: ");
+            String inputStr = s.nextLine();
+
+            int inputNum = -1;
+            try {
+                inputNum = Integer.parseInt(inputStr);
+            } catch(NumberFormatException e){
+                output.println("invalid input"); output.flush();
+                return;
+            }
+
+            if(inputNum > getPlayerHandSize(p)){
+                output.println("invalid input"); output.flush();
+            }
+            else{
+                adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
+                StringWriter out1 = new StringWriter();
+                displayAdventureHand(p, new PrintWriter(out1));
+                System.out.println(out1);
+            }
         }
-
-        if(inputNum > getPlayerHandSize(p)){
-            output.println("invalid input"); output.flush();
-            return;
-        }
-
-        adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
-        displayAdventureHand(p, output);
     }
 
     int getAdventureDeckSize(){
@@ -668,10 +717,6 @@ public class Main {
             p.playersHand.remove(position);
             p.playersHand.add(position, aCard);
         }
-    }
-
-    void sponsor(){
-
     }
 
     int getNumFoe(player p){
