@@ -256,6 +256,14 @@ public class Main {
 
     void drawEventCard(){
         currentEvent = eventDeck.removeFirst();
+        resetPlaying();
+    }
+
+    void resetPlaying(){
+        playersPlaying.clear();
+        for(int i = 0; i < 4; i++){
+            playersPlaying.add(players.get(i));
+        }
     }
 
     void displayEventCard(eventCard eCard, PrintWriter output){
@@ -279,30 +287,30 @@ public class Main {
             String input = "";
             addCard(currentPlayer);
             addCard(currentPlayer);
-            trimHand(currentPlayer, new Scanner(input), new PrintWriter(output));
+            //trimHand(currentPlayer, new Scanner(input), new PrintWriter(output));
         }
         else if(currentEvent.type.equals("Prosperity")){
             StringWriter output0 = new StringWriter();
             StringWriter output1 = new StringWriter();
             StringWriter output2 = new StringWriter();
             StringWriter output3 = new StringWriter();
-            String input = "";
+            String input = " ";
 
             addCard(players.get(0));
             addCard(players.get(0));
-            trimHand(playersPlaying.get(0), new Scanner(input), new PrintWriter(output0));
+            //trimHand(playersPlaying.get(0), new Scanner(input), new PrintWriter(output0));
 
             addCard(players.get(1));
             addCard(players.get(1));
-            trimHand(playersPlaying.get(1), new Scanner(input), new PrintWriter(output1));
+            //trimHand(playersPlaying.get(1), new Scanner(input), new PrintWriter(output1));
 
             addCard(players.get(2));
             addCard(players.get(2));
-            trimHand(playersPlaying.get(2), new Scanner(input), new PrintWriter(output2));
+            //trimHand(playersPlaying.get(2), new Scanner(input), new PrintWriter(output2));
 
             addCard(players.get(3));
             addCard(players.get(3));
-            trimHand(playersPlaying.get(3), new Scanner(input), new PrintWriter(output3));
+            //trimHand(playersPlaying.get(3), new Scanner(input), new PrintWriter(output3));
         }
         else if(currentEvent.type.equals("Q")){
             startQ();
@@ -591,6 +599,25 @@ public class Main {
             }
         }
         return numFoes;
+    }
+
+    int buildAttackOnce(player p, Scanner input, PrintWriter output){
+        int attackPower = 0;
+        String inputStr = "";
+
+
+//            StringWriter out = new StringWriter();
+//            displayAdventureHand(p, new PrintWriter(out));
+//            System.out.println(out);
+
+            output.println("Enter the card number you would like to use for your attack OR enter 'quit'");
+            inputStr = input.nextLine();
+
+            int inputNum = Integer.parseInt(inputStr);
+            attackPower += p.playersHand.get(inputNum-1).value;
+            adventureDiscardPile.add(p.playersHand.remove(inputNum-1));
+
+        return attackPower;
     }
 
     int buildAttack(player p, Scanner input, PrintWriter output){
