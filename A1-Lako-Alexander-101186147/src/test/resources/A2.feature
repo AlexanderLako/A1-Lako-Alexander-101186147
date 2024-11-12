@@ -26,3 +26,25 @@ Feature: A2 Game
       Then P2 and P3 earn 3 shields
       Then P3 is declared the winner
 
+
+    Scenario: 2winner_game_2winner_quest
+      Given a 4-stage quest is drawn
+      And P1 decides to sponsor the quest
+      When P2, P3, P4 participate in stage 1
+      And P2 and P4 wins, P3 loses
+      When P2 and P3 participate again
+      And P2 and P4 win quest
+      Then P2 and P4 earn 4 shields
+      When P2 draws a 3-stage quest
+      And P2 declines to sponsor quest
+      And P3 decides to sponsor the quest
+      When P1 declines to participate
+      And P2, P4 participate
+      When P2 and P4 win the quest
+      Then P2 and P4 earn 3 shields
+      Then P2 and P4 are declared the winners
+
+
+
+
+

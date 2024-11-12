@@ -75,7 +75,7 @@ public class GameSteps {
 
 
 
-    
+
     @Given("a 4-stage quest is drawn")
     public void draw4StageQuest() {
         game = new Main();
@@ -227,9 +227,121 @@ public class GameSteps {
 
 
 
+    @Then("P2 and P4 wins, P3 loses")
+    public void p2p4winp3loss(){
+        for (int s = 0; s < game.currentEvent.stages; s++) {
+            game.setAdventureCard(game.players.get(game.sponsorPlayerNum), "F", "", 15, 0);
+            game.buildStage(new Scanner("1"));
 
+            game.setAdventureCard(game.playersPlaying.get(0), "W", "B", 15, 0);
+            game.setAdventureCard(game.playersPlaying.get(1), "W", "S", 10, 0);
+            game.setAdventureCard(game.playersPlaying.get(2), "W", "B", 15, 0);
 
+            int player2Attack = game.buildAttackOnce(game.playersPlaying.get(0), new Scanner("1"), new PrintWriter(new StringWriter()));
+            int player3Attack = game.buildAttackOnce(game.playersPlaying.get(1), new Scanner("1"), new PrintWriter(new StringWriter()));
+            int player4Attack = game.buildAttackOnce(game.playersPlaying.get(2), new Scanner("1"), new PrintWriter(new StringWriter()));
 
+            assertTrue("Player won the stage", player2Attack >= game.foePoints);
+            assertTrue("Player lost the stage", player3Attack < game.foePoints);
+            assertTrue("Player won the stage", player4Attack >= game.foePoints);
+
+        }
+    }
+
+    @When("P2 and P4 win quest")
+    public void p2AndppWinStages() {
+        for (int s = 0; s < game.currentEvent.stages-1; s++) {
+            game.setAdventureCard(game.players.get(game.sponsorPlayerNum), "F", "", 15, 0);
+            game.buildStage(new Scanner("1"));
+
+            game.setAdventureCard(game.playersPlaying.get(0), "W", "B", 15, 0);
+            game.setAdventureCard(game.playersPlaying.get(2), "W", "B", 15, 0);
+
+            int player2Attack = game.buildAttackOnce(game.playersPlaying.get(0), new Scanner("1"), new PrintWriter(new StringWriter()));
+            int player4Attack = game.buildAttackOnce(game.playersPlaying.get(2), new Scanner("1"), new PrintWriter(new StringWriter()));
+
+            assertTrue("Player won the stage", player2Attack >= game.foePoints);
+            assertTrue("Player won the stage", player4Attack >= game.foePoints);
+        }
+    }
+
+    @Then("P2 and P4 earn 4 shields")
+    public void p2AndP4Earn4Shields() {
+        int initShields1 = game.players.get(1).numShields;
+        int initShields2 = game.players.get(3).numShields;
+        game.players.get(1).numShields += game.currentEvent.stages;
+        game.players.get(3).numShields += game.currentEvent.stages;
+        assertEquals(initShields1 + game.currentEvent.stages, game.players.get(1).numShields);
+        assertEquals(initShields2 + game.currentEvent.stages, game.players.get(3).numShields);
+    }
+
+    @When("P2 draws a 3-stage quest")
+    public void p2draws3stage(){
+        game.currentPlayer = game.players.get(1);
+        game.setEventCard("Q", 3, 0);
+        game.drawEventCard();
+        assertEquals("Q", game.currentEvent.type);
+        assertEquals(3, game.currentEvent.stages);
+    }
+
+    @Then("P2 declines to sponsor quest")
+    public void p2DeclineToSponsor(){
+        game.nextPlayer();
+    }
+
+    @Then("P3 decides to sponsor the quest")
+    public void p3Sponsor(){
+        game.sponsorPlayerNum = 2;
+        game.playersPlaying.remove(game.players.get(game.sponsorPlayerNum));
+    }
+
+    @Then("P1 declines to participate")
+    public void p1DeclinesToParticipate(){
+        String in = "withdraw";
+        game.withdrawOrTackle(game.players.get(0), new Scanner(in));
+        game.playersPlaying.remove(game.players.get(0));
+        assertEquals(2, game.playersPlaying.size());
+    }
+
+    @Then("P2, P4 participate")
+    public void p2p4Partake(){
+        String in = "partake";
+        game.withdrawOrTackle(game.players.get(1), new Scanner(in));
+        game.withdrawOrTackle(game.players.get(3), new Scanner(in));
+    }
+
+    @When("P2 and P4 win the quest")
+    public void p2AndP4WinQuest() {
+        for (int s = 0; s < game.currentEvent.stages-1; s++) {
+            game.setAdventureCard(game.players.get(game.sponsorPlayerNum), "F", "", 15, 0);
+            game.buildStage(new Scanner("1"));
+
+            game.setAdventureCard(game.playersPlaying.get(0), "W", "B", 15, 0);
+            game.setAdventureCard(game.playersPlaying.get(1), "W", "B", 15, 0);
+
+            int player2Attack = game.buildAttackOnce(game.playersPlaying.get(0), new Scanner("1"), new PrintWriter(new StringWriter()));
+            int player4Attack = game.buildAttackOnce(game.playersPlaying.get(1), new Scanner("1"), new PrintWriter(new StringWriter()));
+
+            assertTrue("Player won the stage", player2Attack >= game.foePoints);
+            assertTrue("Player won the stage", player4Attack >= game.foePoints);
+        }
+    }
+
+    @Then("P2 and P4 earn 3 shields")
+    public void p2AndP4Earn3Shields() {
+        int initShields1 = game.players.get(1).numShields;
+        int initShields2 = game.players.get(3).numShields;
+        game.players.get(1).numShields += game.currentEvent.stages;
+        game.players.get(3).numShields += game.currentEvent.stages;
+        assertEquals(initShields1 + game.currentEvent.stages, game.players.get(1).numShields);
+        assertEquals(initShields2 + game.currentEvent.stages, game.players.get(3).numShields);
+    }
+
+    @Then("P2 and P4 are declared the winners")
+    public void declareWinners() {
+        assertTrue("P2 wins", game.players.get(1).numShields >= 7);
+        assertTrue("P4 wins", game.players.get(3).numShields >= 7);
+    }
 
 
 
