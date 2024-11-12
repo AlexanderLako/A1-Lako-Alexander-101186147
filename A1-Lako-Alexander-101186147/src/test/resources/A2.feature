@@ -14,14 +14,14 @@ Feature: A2 Game
       When P2, P3, P4 participate in stage 1
       And all players win
       Then P2, P3, P4 all earn 4 shields
-      When P2 draws plague and loses two shields
-      When P3 draws prosperity and everyone gets two cards
-      When P4 draws Queens favor and draws 2 adventure cards
-      When P1 draws a 3-stage quest
+      Then P2 draws plague and loses two shields
+      Then P3 draws prosperity and everyone gets two cards
+      Then P4 draws Queens favor and draws 2 adventure cards
+      Then P1 draws a 3-stage quest
       And P1 decides to sponsor the quest
-      When P2, P3, P4 participate in stage 1
+      And P2, P3, P4 participate in stage 1
       And P2, P3 wins, P4 loses
-      When P2 and P3 participate again
+      Then P2 and P3 participate again
       And P2 and P3 win quest
       Then P2 and P3 earn 3 shields
       Then P3 is declared the winner
@@ -32,17 +32,32 @@ Feature: A2 Game
       And P1 decides to sponsor the quest
       When P2, P3, P4 participate in stage 1
       And P2 and P4 wins, P3 loses
-      When P2 and P3 participate again
+      And P2 and P3 participate again
       And P2 and P4 win quest
       Then P2 and P4 earn 4 shields
-      When P2 draws a 3-stage quest
+      Then P2 draws a 3-stage quest
       And P2 declines to sponsor quest
       And P3 decides to sponsor the quest
-      When P1 declines to participate
+      Then P1 declines to participate
       And P2, P4 participate
-      When P2 and P4 win the quest
+      And P2 and P4 win the quest
       Then P2 and P4 earn 3 shields
       Then P2 and P4 are declared the winners
+
+    Scenario: A1_scenario
+      Given a 4-stage quest is drawn
+      And P1 declines to sponsor
+      Then P2 sponsors the quest
+      When P1, P3, P4 participate
+      And P1, P3, P4 win stage 1
+      Then P1, P3, P4 participate
+      And P1 loses, P3, and P4 win stage 2
+      Then P3, P4 participate
+      And P3, P4 win stage 3
+      Then P3, P4 participate
+      And P4 wins, P3 loses
+      Then P4 gains 4 shields
+
 
 
 
