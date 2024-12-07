@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A3 Game</title>
+<!--    <link rel="stylesheet" href="styles.css">-->
 </head>
 <body>
-
+<div class="container">
+    <h1>Welcome to A3</h1>
+    <label id="numShields">Number of Shields: </label>
+    <br />
+    <label id="numCards">Number of Cards: </label>
+    <br />
+    <br />
+    <button onclick="startGame()">Start Game</button>
+    <button onclick="pullEventCard()">Pull Event Card</button>
+    <div id="game-status"></div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>

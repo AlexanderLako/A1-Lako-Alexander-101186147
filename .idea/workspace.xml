@@ -5,26 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd4a3ece-defd-45d9-89dc-cd670c714ab7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/A1-Lako-Alexander-101186147.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/A3Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/test/java/org/example/AppTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/A3Application.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/frontend/script.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/frontend/test.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/src/test/java/org/example/GameSteps.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/src/test/java/org/example/MainTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/src/test/java/org/example/RunCucumberTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/src/test/resources/A2.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/A3Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/backend/src/main/java/org/example/A3Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/A1-Lako-Alexander-101186147/frontend/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
