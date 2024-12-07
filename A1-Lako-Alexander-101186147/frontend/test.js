@@ -1,55 +1,6 @@
 
 const { Builder, By, until } = require('selenium-webdriver');
 
-//async function runTest() {
-//    let driver = await new Builder().forBrowser('chrome').build();
-//
-//    try {
-//        await driver.get('http://127.0.0.1:8081');
-//
-//        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-//        await startButton.click();
-//
-//        await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Game started'), 10000);
-//        console.log("Game started successfully.");
-//
-//        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-//        await startButton.click();
-//
-//        let hitButton = await driver.findElement(By.xpath("//button[contains(text(), 'Hit')]"));
-//        for (let i = 0; i < 3; i++) {
-//            await hitButton.click();
-//            await driver.sleep(1000);
-//            let hitStatus = await driver.findElement(By.id('game-status')).getText();
-//            console.log(`After Hit ${i + 1}:`, hitStatus);
-//
-//            if (hitStatus.includes("Bust")) {
-//                console.log("Player busted!");
-//                break;
-//            }
-//        }
-//
-//        let standButton = await driver.findElement(By.xpath("//button[contains(text(), 'Stand')]"));
-//        await standButton.click();
-//
-//        await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Player'), 10000);
-//
-//        let finalStatus = await driver.findElement(By.id('game-status')).getText();
-//        console.log("Final Game Status:", finalStatus);
-//
-//        if (finalStatus.includes("Player wins") || finalStatus.includes("Dealer wins") || finalStatus.includes("It's a tie")) {
-//            console.log("Test passed: Final game result is displayed correctly.");
-//        } else {
-//            console.log("Test failed: Final game result is missing or incorrect.");
-//        }
-//
-//    } catch (error) {
-//        console.error("Test encountered an error:", error);
-//    } finally {
-//        await driver.quit();
-//    }
-//}
-
 async function A1_Scenario_Test() {
     let driver = await new Builder().forBrowser('chrome').build();
 
@@ -61,9 +12,6 @@ async function A1_Scenario_Test() {
 
         await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Game started'), 10000);
         console.log("Game started successfully.");
-
-        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        await startButton.click();
 
     } catch (error) {
         console.error("Test encountered an error:", error);
@@ -85,8 +33,6 @@ async function twoWinner_Game_2winner_quest_test() {
         await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Game started'), 10000);
         console.log("Game started successfully.");
 
-        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        await startButton.click();
 
     } catch (error) {
         console.error("Test encountered an error:", error);
@@ -107,8 +53,7 @@ async function oneWinner_game_with_events_test() {
         await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Game started'), 10000);
         console.log("Game started successfully.");
 
-        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        await startButton.click();
+
 
     } catch (error) {
         console.error("Test encountered an error:", error);
@@ -131,13 +76,12 @@ async function noWinner_quest_test() {
         await driver.wait(until.elementTextContains(driver.findElement(By.id('game-status')), 'Game started'), 10000);
         console.log("Game started successfully.");
 
-        let startButton = await driver.findElement(By.xpath("//button[contains(text(), 'Start Game')]"));
-        await startButton.click();
 
-        bool isWinner = true;
+
+        let isWinner = true;
         Assert.asertTrue(isWinner &gt;= false, "Should be no winners");
 
-        player1CardCount = driver.findElements(By.cssSelector('#player-cards .card')).size();
+        int player1CardCount = driver.findElements(By.cssSelector('#player-cards .card')).size();
         Assert.asertTrue(player1CardCount &gt;= 12, "P1 should have 12 cards");
 
     } catch (error) {
@@ -147,8 +91,6 @@ async function noWinner_quest_test() {
     }
 }
 
-
-//runTest();
 
 A1_Scenario_Test();
 twoWinner_Game_2winner_quest_test();
