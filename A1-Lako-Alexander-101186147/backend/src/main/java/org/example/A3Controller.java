@@ -15,110 +15,6 @@ import java.util.Scanner;
 @CrossOrigin(origins = "http://127.0.0.1:8081")
 public class A3Controller {
 
-//    private Deck deck;
-//    private Player player;
-//    private Player dealer;
-
-    public A3Controller() {
-        resetGame();
-    }
-
-    @GetMapping("/start")
-    public String startGame() {
-        resetGame();
-        initializeEventDeck();
-        initializeAdventureDeck();
-        initializePlayers();
-        setEventCard("Q",2,0);
-
-//        player.addCard(deck.drawCard());
-//        player.addCard(deck.drawCard());
-//        dealer.addCard(deck.drawCard());
-//        dealer.addCard(deck.drawCard());
-//        return "Game started. Player score: " + player.getScore();
-        return "Game started. Player score: " + players.get(0).numShields+1;
-    }
-
-    @PostMapping("/hit")
-    public String hit() {
-//        player.addCard(deck.drawCard());
-//        if (player.getScore() > 21) {
-//            return "Bust! Player score: " + player.getScore();
-//        }
-//        return "Player hits. Current score: " + player.getScore();
-        return "";
-    }
-
-    @PostMapping("/stand")
-    public String stand() {
-//        while (dealer.getScore() < 17) {
-//            dealer.addCard(deck.drawCard());
-//        }
-//
-//        int playerScore = player.getScore();
-//        int dealerScore = dealer.getScore();
-//
-//        if (dealerScore > 21 || playerScore > dealerScore) {
-//            return "Player wins! Player score: " + playerScore + ", Dealer score: " + dealerScore;
-//        } else if (playerScore < dealerScore) {
-//            return "Dealer wins! Player score: " + playerScore + ", Dealer score: " + dealerScore;
-//        } else {
-//            return "It's a tie! Player score: " + playerScore + ", Dealer score: " + dealerScore;
-//        }
-        return "";
-    }
-
-    private void resetGame() {
-//        deck = new Deck();
-//        deck.shuffleDeck();
-//        player = new Player();
-//        dealer = new Player();
-    }
-
-
-
-
-//public class A3Controller {
-
-    public static void main(String[] args) {
-        Main game = new Main();
-        game.initializeEventDeck();
-        game.initializeAdventureDeck();
-        game.initializePlayers();
-
-//        game.setEventCard("Q",2,0);
-//
-//        while(!game.checkWinner()){
-//            StringWriter output = new StringWriter();
-//            Scanner input = new Scanner(System.in);
-//
-//            game.drawEventCard();
-//            game.displayEventCard(game.currentEvent, new PrintWriter(output));
-//            System.out.println(output);
-//
-//            game.playEvent();
-//            if(game.checkWinner()){break;}
-//
-//            while(game.players.get(game.sponsorPlayerNum).playersHand.size() < 12){
-//                game.addCard(game.players.get(game.sponsorPlayerNum));
-//
-//            }
-//
-//            String in = "<return>";
-//            StringWriter out = new StringWriter();
-//            game.endPlayerTurn(new Scanner(in), new PrintWriter(out));
-//            System.out.println(out);
-//
-//        }
-//
-//        StringWriter win = new StringWriter();
-//        game.displayWinners(new PrintWriter(win));
-//        System.out.println(win);
-
-
-
-    }
-
     class adventureCard{
         String type; // Foe, Weapon
         String category; // Daggers, Horses, Swords, Battle-Axes, Lances, Excaliburs
@@ -175,6 +71,125 @@ public class A3Controller {
     int numPlayers = 4;
     int handSize = 12;
     boolean terminate = false;
+
+    public A3Controller() {
+        resetGame();
+    }
+
+    @GetMapping("/start")
+    public String startGame() {
+        resetGame();
+
+        //setEventCard("Q",2,0);
+
+//        player.addCard(deck.drawCard());
+//        player.addCard(deck.drawCard());
+//        dealer.addCard(deck.drawCard());
+//        dealer.addCard(deck.drawCard());
+//        return "Game started. Player score: " + player.getScore();
+        return "Game started. Player score: " + players.get(0).numShields;
+    }
+
+    @PostMapping("/drawEventCard")
+    public String drawEventCard(){
+        currentEvent = eventDeck.removeFirst();
+        resetPlaying();
+
+        if(currentEvent.stages == -1){
+            return("Current Event Card: " + currentEvent.type);
+        }
+        else{
+            return("Current Event Card: " + currentEvent.type + currentEvent.stages);
+        }
+    }
+
+    @PostMapping("/sponsor")
+    public String spsonsorGame(){
+        sponsorPlayerNum = players.indexOf(currentPlayer);
+        return (currentPlayer.name + " has decided to sponsor the quest");
+    }
+
+
+    @PostMapping("/dontSponsor")
+    public String declineSponsor(){
+        nextPlayer();
+        return (currentPlayer.name + " Would you like to sponsor the current quest?");
+    }
+
+    @PostMapping("/hit")
+    public String hit() {
+//        player.addCard(deck.drawCard());
+//        if (player.getScore() > 21) {
+//            return "Bust! Player score: " + player.getScore();
+//        }
+//        return "Player hits. Current score: " + player.getScore();
+        return "";
+    }
+
+    @PostMapping("/stand")
+    public String stand() {
+//        while (dealer.getScore() < 17) {
+//            dealer.addCard(deck.drawCard());
+//        }
+//
+//        int playerScore = player.getScore();
+//        int dealerScore = dealer.getScore();
+//
+//        if (dealerScore > 21 || playerScore > dealerScore) {
+//            return "Player wins! Player score: " + playerScore + ", Dealer score: " + dealerScore;
+//        } else if (playerScore < dealerScore) {
+//            return "Dealer wins! Player score: " + playerScore + ", Dealer score: " + dealerScore;
+//        } else {
+//            return "It's a tie! Player score: " + playerScore + ", Dealer score: " + dealerScore;
+//        }
+        return "";
+    }
+
+    private void resetGame() {
+        initializeEventDeck();
+        initializeAdventureDeck();
+        initializePlayers();
+    }
+
+
+//    public static void main(String[] args) {
+//        Main game = new Main();
+//        game.initializeEventDeck();
+//        game.initializeAdventureDeck();
+//        game.initializePlayers();
+
+//        game.setEventCard("Q",2,0);
+//
+//        while(!game.checkWinner()){
+//            StringWriter output = new StringWriter();
+//            Scanner input = new Scanner(System.in);
+//
+//            game.drawEventCard();
+//            game.displayEventCard(game.currentEvent, new PrintWriter(output));
+//            System.out.println(output);
+//
+//            game.playEvent();
+//            if(game.checkWinner()){break;}
+//
+//            while(game.players.get(game.sponsorPlayerNum).playersHand.size() < 12){
+//                game.addCard(game.players.get(game.sponsorPlayerNum));
+//
+//            }
+//
+//            String in = "<return>";
+//            StringWriter out = new StringWriter();
+//            game.endPlayerTurn(new Scanner(in), new PrintWriter(out));
+//            System.out.println(out);
+//
+//        }
+//
+//        StringWriter win = new StringWriter();
+//        game.displayWinners(new PrintWriter(win));
+//        System.out.println(win);
+
+
+
+//    }
 
     //Initializes an adventure card array with all foe and weapon cards. Shuffle Deck
     void initializeAdventureDeck(){
@@ -325,10 +340,7 @@ public class A3Controller {
         terminate = true;
     }
 
-    void drawEventCard(){
-        currentEvent = eventDeck.removeFirst();
-        resetPlaying();
-    }
+
 
     void resetPlaying(){
         playersPlaying.clear();
@@ -337,15 +349,17 @@ public class A3Controller {
         }
     }
 
-    void displayEventCard(eventCard eCard, PrintWriter output){
-        if(eCard.stages == -1){
-            output.println("Current Event Card: " + eCard.type); output.flush();
-        }
-        else{
-            output.println("Current Event Card: " + eCard.type + eCard.stages); output.flush();
-        }
-    }
+//    @PostMapping("/displayEventCard")
+//    String displayEventCard(eventCard eCard){
+//        if(eCard.stages == -1){
+//           return("Current Event Card: " + eCard.type);
+//        }
+//        else{
+//            return("Current Event Card: " + eCard.type + eCard.stages);
+//        }
+//    }
 
+    @PostMapping("/playEvent")
     void playEvent(){
         if(currentEvent.type.equals("Plague")){
             currentPlayer.numShields -= 2;
@@ -406,6 +420,8 @@ public class A3Controller {
             return;
         }
     }
+
+
 
     int findSponsor(){
         String inputStr = "yes";
